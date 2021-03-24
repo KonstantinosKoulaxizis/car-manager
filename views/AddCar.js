@@ -52,13 +52,13 @@ export default function AddCar({ navigation }) {
           {selectedBrand && selectedBrand.name ? (
             <CarInfo selectedBrand={selectedBrand} handleSelectedBrand={handleSelectedBrand} />
           ) : (
-            <View style={{ height: 600 }}>
+            <View >
               <Text style={styles.textStyle}>Choose your car's brand</Text>
               <SearchBar
                 lightTheme='true'
                 containerStyle={{ borderRadius: 25 }}
                 inputContainerStyle={{ borderRadius: 25 }}
-                placeholder='Type Here...'
+                placeholder='...'
                 onChangeText={value => setSearchValue(value)}
                 value={searchValue}
               />

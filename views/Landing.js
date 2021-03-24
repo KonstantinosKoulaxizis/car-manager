@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 import { Button } from 'react-native-elements'
 
 const image = { uri: 'https://www.modirent.gr/images/modirent-slider1.jpg' }
 
 export default function App({ navigation }) {
+  const handleExistingUser = async () => {
+    const username = await AsyncStorage.getItem('usersName')
+    const carInfo = await AsyncStorage.getItem('carInfo')
+    console.log('🚀 ~ file: Landing.js ~ line 14 ~ handleExistingUser ~ carInfo', carInfo)
+
+    if (username && username.length && username.length > 0 && !carInfo) {
+      navigation.navigate('free_account')
+    } else if (username && username.length && username.length > 0 && carInfo) {
+      navigation.navigate('free_account')
+    }
+  }
+
+  useEffect(() => {
+    handleExistingUser()
+  }, [])
   return (
     <View style={styles.container}>
       <ImageBackground source={image} style={styles.image}>
