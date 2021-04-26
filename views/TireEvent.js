@@ -11,7 +11,7 @@ import DatePicker from '../components/DatePicker'
 import EventUtils from '../utils/EventUtils'
 import AddServiceEvents from '../components/AddServiceEvents'
 
-export default function ServiceEvent(props) {
+export default function TireEvent(props) {
   const [carMeter, setCarMeter] = useState('')
   const [eventDate, setEventDate] = useState(new Date())
   const [dateError, setDateError] = useState(false)
@@ -36,7 +36,7 @@ export default function ServiceEvent(props) {
         km: carMeter,
         cost: finalCost,
         services: serviceArray,
-        type: 'service'
+        type: 'tires'
       }
 
       await EventUtils.addEvent(newEvent)
@@ -95,7 +95,7 @@ export default function ServiceEvent(props) {
           />
         )}
       />
-      <AddServiceEvents handleAddEvent={handleAddEvent} serviceArray={serviceArray} />
+      <AddServiceEvents handleAddEvent={handleAddEvent} serviceArray={serviceArray} tires={true} />
 
       {serviceArray && serviceArray.length > 0 ? (
         <>

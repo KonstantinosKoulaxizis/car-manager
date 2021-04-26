@@ -21,7 +21,7 @@ export default function RegistrationModal({ navigation }) {
         await AsyncStorage.setItem('usersName', usersName)
         navigation.navigate('add_car')
       } catch (error) {
-        console.log('🚀 ~ file: RegistrationModal.js ~ line 23 ~ handleUsersName ~ error', error)
+        console.log(error)
       }
     } else {
       setVisible(true)

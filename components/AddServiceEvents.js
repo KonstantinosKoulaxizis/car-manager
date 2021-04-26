@@ -5,6 +5,7 @@ import { Input, Button, CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import ServiceTypes from '../utils/ServiceTypes'
+import TireTypes from '../utils/TireTypes'
 
 export default function AddServiceEvents(props) {
   const [data, setData] = useState([])
@@ -58,6 +59,8 @@ export default function AddServiceEvents(props) {
     if (props.loadedItem) {
       setServiceArray(props.loadedItem)
       handleExtraEvents()
+    } else if (props.tires) {
+      setData(TireTypes)
     } else {
       setData(ServiceTypes)
     }
@@ -102,19 +105,21 @@ export default function AddServiceEvents(props) {
                 </View>
               ))}
 
-              <Button
-                title='Άλλο σέρβις'
-                buttonStyle={styles.addServiceBtn}
-                containerStyle={{
-                  paddingTop: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-                icon={
-                  <Icon name='pen-plus' size={25} color='#d2d6ef' style={{ marginRight: 15 }} />
-                }
-                onPress={() => setModalVisibleEvent(!modalVisibleEvent)}
-              />
+              {!props.tires && (
+                <Button
+                  title='Άλλο σέρβις'
+                  buttonStyle={styles.addServiceBtn}
+                  containerStyle={{
+                    paddingTop: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                  icon={
+                    <Icon name='pen-plus' size={25} color='#d2d6ef' style={{ marginRight: 15 }} />
+                  }
+                  onPress={() => setModalVisibleEvent(!modalVisibleEvent)}
+                />
+              )}
             </ScrollView>
             <View>
               <Button

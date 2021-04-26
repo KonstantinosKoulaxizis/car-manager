@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements'
 import GasType from './modalTypes/GasType'
 import ServiceType from './modalTypes/ServiceType'
 import KteoType from './modalTypes/KteoType'
+import TireType from './modalTypes/TireType'
 
 const EventModal = props => {
   const [editItem, setEditItem] = useState(false)
@@ -23,6 +24,8 @@ const EventModal = props => {
         return 'Service'
       } else if (props.item.type === 'kteo') {
         return 'KTEO'
+      } else if (props.item.type === 'tires') {
+        return 'Ελαστικά'
       }
     }
   }
@@ -65,6 +68,16 @@ const EventModal = props => {
           )}
           {props.item.type && props.item.type === 'kteo' && (
             <KteoType
+              item={props.item}
+              editItem={editItem}
+              handleEditItem={handleEditItem}
+              itemsIndex={props.itemsIndex}
+              handleRefresh={props.handleRefresh}
+              handleModalStatus={props.handleModalStatus}
+            />
+          )}
+          {props.item.type && props.item.type === 'tires' && (
+            <TireType
               item={props.item}
               editItem={editItem}
               handleEditItem={handleEditItem}

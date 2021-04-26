@@ -14,9 +14,12 @@ export default function ModalButtons(props) {
       const carInfoRaw = await AsyncStorage.getItem('carInfo')
       const carInfoObj = JSON.parse(carInfoRaw)
 
-      if (Number(props.item.km) > Number(carInfoObj.km)){
+      const itemKm = props.item.km.replace(/[, ]+/g, '').trim()
+      const storedKm = carInfoObj.km.replace(/[, ]+/g, '').trim()
+
+      if (Number(itemKm) > Number(storedKm)) {
         carInfoObj.km = props.item.km
-        await AsyncStorage.setItem('carInfo', JSON.parse(carInfoObj))
+        await AsyncStorage.setItem('carInfo', JSON.stringify(carInfoObj))
       }
 
       list[props.itemsIndex] = props.item
