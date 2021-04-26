@@ -3,23 +3,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import NumberFormat from 'react-number-format'
 import { Snackbar } from 'react-native-paper'
-import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { Input, Button, CheckBox } from 'react-native-elements'
+import { StyleSheet, View, ScrollView } from 'react-native'
+import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import DropDownPicker from 'react-native-dropdown-picker'
 
 import DatePicker from '../components/DatePicker'
 import EventUtils from '../utils/EventUtils'
-import ServiceTypes from '../utils/ServiceTypes'
-import AddServiceEvents from '../components/AddServiceEvents'
 
-export default function ServiceEvent(props) {
+export default function KteoEvent(props) {
   const [carMeter, setCarMeter] = useState('')
   const [eventDate, setEventDate] = useState(new Date())
   const [dateError, setDateError] = useState(false)
-  const [visible, setVisible] = useState(false)
-  const [serviceArray, setServiceArray] = useState([])
+  const [notes, setNotes] = useState('')
   const [finalCost, setFinalCost] = useState('')
+  const [visible, setVisible] = useState(false)
 
   const onDismissSnackBar = () => setVisible(false)
 
@@ -31,14 +28,14 @@ export default function ServiceEvent(props) {
     setDateError(state)
   }
 
-  const handleAddGasEvent = async () => {
-    if (!dateError && carMeter.length && finalCost && finalCost.length && serviceArray.length > 0) {
+  const handleKteoEvent = async () => {
+    if (!dateError && carMeter.length && finalCost.length) {
       const newEvent = {
         date: eventDate,
         km: carMeter,
+        notes: notes,
         cost: finalCost,
-        services: serviceArray,
-        type: 'service'
+        type: 'kteo'
       }
 
       await EventUtils.addEvent(newEvent)
@@ -56,23 +53,6 @@ export default function ServiceEvent(props) {
     if (carInfoObj && carInfoObj.km) {
       setCarMeter(carInfoObj.km)
     }
-  }
-
-  const handleAddEvent = arr => {
-    setServiceArray(arr)
-  }
-
-  const handleIsDisabled = () => {
-    if (!dateError && carMeter.length && finalCost && finalCost.length && serviceArray.length > 0) {
-      return false
-    } else {
-      return true
-    }
-  }
-
-  const handleRemove = i => {
-    const remaining = serviceArray.filter(s => s !== i)
-    setServiceArray(remaining)
   }
 
   useEffect(() => {
@@ -97,36 +77,28 @@ export default function ServiceEvent(props) {
           />
         )}
       />
-      <AddServiceEvents handleAddEvent={handleAddEvent} serviceArray={serviceArray} />
 
-      {serviceArray && serviceArray.length > 0 ? (
-        <>
-          {serviceArray.map((item, index) => (
-            <CheckBox title={item} checked={true} key={index} onPress={() => handleRemove(item)} />
-          ))}
-          <Input
-            label='Κόστος (€)'
-            leftIcon={
-              <Icon name='cash-register' size={24} color={serviceArray.length ? 'black' : 'grey'} />
-            }
-            onChangeText={value => setFinalCost(value)}
-            value={finalCost}
-            keyboardType={'numeric'}
-            disabled={!serviceArray.length}
-          />
-        </>
-      ) : (
-        <Text style={{ color: '#ee3e54' }}>* Παρακαλώ επιλέξτε μια η περισσότερες εργασίες</Text>
-      )}
-
+      <Input
+        label='Κόστος (€)'
+        leftIcon={<Icon name='cash-register' size={24} color='black' />}
+        onChangeText={value => setFinalCost(value)}
+        value={finalCost}
+        keyboardType={'numeric'}
+      />
+      <Input
+        label='Σημειώσεις'
+        leftIcon={<Icon name='note-text-outline' size={24} color='black' />}
+        onChangeText={value => setNotes(value)}
+        value={notes}
+        multiline={true}
+      />
       <View>
         <Button
           title='Αποθήκευση'
           buttonStyle={styles.registerButton}
-          containerStyle={{ paddingTop: 30, paddingBottom: 40, borderRadius: 25 }}
+          containerStyle={{ marginTop: 30, borderRadius: 25 }}
           icon={<Icon name='content-save' size={25} color='#d2d6ef' style={{ marginRight: 15 }} />}
-          onPress={handleAddGasEvent}
-          disabled={handleIsDisabled()}
+          onPress={handleKteoEvent}
         />
       </View>
       <Snackbar
@@ -152,8 +124,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     flexDirection: 'column',
-    padding: 20,
-    height: 'auto'
+    padding: 20
   },
   textStyle: {
     textAlign: 'center',

@@ -43,13 +43,15 @@ export default function AddServiceEvents(props) {
   }
 
   const handleExtraEvents = () => {
+    const newEntries = []
     props.loadedItem.forEach(i => {
       const existing = ServiceTypes.find(s => s === i)
 
       if (!existing) {
-        setData([...data, i])
+        newEntries.push(i)
       }
     })
+    setData([...ServiceTypes, ...newEntries])
   }
 
   useEffect(() => {

@@ -51,6 +51,17 @@ export default function EventsList( props) {
           <ListItem.Chevron />
         </ListItem>
       )}
+      {item.type === 'kteo' && (
+        <ListItem key={i} bottomDivider onPress={() => handleEventModal(item)}>
+          <Icon name='car-settings' size={24} color='#6d75a8' />
+          <ListItem.Content>
+            <ListItem.Title>KTEO</ListItem.Title>
+            <Text>{moment(item.date).format('DD - MM - YYYY')}</Text>
+            <Text>Κόστος: {item.cost} €</Text>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      )}
     </View>
   )
 

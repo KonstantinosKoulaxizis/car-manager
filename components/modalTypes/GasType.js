@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 import NumberFormat from 'react-number-format'
-import { StyleSheet, ScrollView, View } from 'react-native'
-import { Input, Button } from 'react-native-elements'
+import { StyleSheet, ScrollView } from 'react-native'
+import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import DatePicker from '../DatePicker'

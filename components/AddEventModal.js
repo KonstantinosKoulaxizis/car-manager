@@ -6,12 +6,13 @@ import { Button } from 'react-native-elements'
 
 const AddEventModal = props => {
   const handleSelectedAction = type => {
+    props.handleModalStatus()
     if (type === 'service') {
-      props.handleModalStatus()
       props.navigation.navigate('service_event')
     } else if (type === 'gas') {
-      props.handleModalStatus()
       props.navigation.navigate('gas_event')
+    } else if (type === 'kteo') {
+      props.navigation.navigate('kteo_event')
     }
   }
 

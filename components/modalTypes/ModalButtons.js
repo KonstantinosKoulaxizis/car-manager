@@ -20,7 +20,6 @@ export default function ModalButtons(props) {
       }
 
       list[props.itemsIndex] = props.item
-      console.log('🚀 ~ file: ModalButtons.js ~ line 14 ~ handleUpdateItem ~ list', list)
       await AsyncStorage.setItem('car_events', JSON.stringify(list))
       props.handleModalStatus()
       props.handleRefresh()

@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
 
 import NumberFormat from 'react-number-format'
-import { StyleSheet, ScrollView, Text } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 import { Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import DatePicker from '../DatePicker'
 import ModalButtons from './ModalButtons'
-import AddServiceEvents from '../AddServiceEvents'
 
-export default function ServiceType(props) {
+export default function KteoType(props) {
   const [carMeter, setCarMeter] = useState('')
   const [eventDate, setEventDate] = useState(new Date())
   const [dateError, setDateError] = useState(false)
+  const [notes, setNotes] = useState('')
   const [finalCost, setFinalCost] = useState('')
-  const [serviceArray, setServiceArray] = useState([])
   const [newItem, setNewItem] = useState({})
 
   const handleDate = date => {
@@ -29,24 +28,21 @@ export default function ServiceType(props) {
     if (props.item) {
       setEventDate(props.item.date)
       setCarMeter(props.item.km)
+      setNotes(props.item.notes)
       setFinalCost(props.item.cost)
-      setServiceArray(props.item.services)
     }
   }
 
-  const handleAddEvent = list => {
-    setServiceArray(list)
-  }
-
   const handleItem = () => {
+    // TODO handle error
+
     const i = {
       cost: finalCost,
       date: eventDate,
       km: carMeter,
       type: props.item.type,
-      services: serviceArray
+      notes: notes
     }
-
     setNewItem(i)
   }
 
@@ -56,7 +52,7 @@ export default function ServiceType(props) {
 
   useEffect(() => {
     handleItem()
-  }, [carMeter, eventDate, finalCost, serviceArray])
+  }, [carMeter, eventDate, notes, finalCost])
 
   return (
     <ScrollView style={styles.container}>
@@ -82,37 +78,23 @@ export default function ServiceType(props) {
         )}
       />
 
-      {props.editItem && (
-        <AddServiceEvents
-          handleAddEvent={handleAddEvent}
-          serviceArray={serviceArray}
-          loadedItem={serviceArray}
-        />
-      )}
-      {serviceArray && serviceArray.length > 0 ? (
-        <>
-          {serviceArray.map((item, index) => (
-            <Text
-              style={{ fontWeight: 'bold', fontSize: 15, alignSelf: 'center', marginBottom: 20 }}
-              key={index}
-            >
-              {item}
-            </Text>
-          ))}
-          <Input
-            label='Κόστος (€)'
-            leftIcon={
-              <Icon name='cash-register' size={24} color={serviceArray.length ? 'black' : 'grey'} />
-            }
-            onChangeText={value => setFinalCost(value)}
-            value={finalCost}
-            keyboardType={'numeric'}
-            disabled={!serviceArray.length}
-          />
-        </>
-      ) : (
-        <Text style={{ color: '#ee3e54' }}>* Παρακαλώ επιλέξτε μια η περισσότερες εργασίες</Text>
-      )}
+      <Input
+        label='Κόστος (€)'
+        leftIcon={<Icon name='cash-register' size={24} color='black' />}
+        onChangeText={value => setFinalCost(value)}
+        value={finalCost}
+        disabled={!props.editItem}
+        keyboardType={'numeric'}
+      />
+      <Input
+        label='Σημειώσεις'
+        placeholder='Χωρίς σημείωση'
+        leftIcon={<Icon name='note-text-outline' size={24} color='black' />}
+        onChangeText={value => setNotes(value)}
+        value={notes}
+        multiline={true}
+        disabled={!props.editItem}
+      />
 
       <ModalButtons
         editItem={props.editItem}

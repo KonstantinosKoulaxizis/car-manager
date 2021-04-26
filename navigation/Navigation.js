@@ -8,6 +8,7 @@ import AddCar from '../views/AddCar'
 import Main from '../views/Main'
 import GasEvent from '../views/GasEvent'
 import ServiceEvent from '../views/ServiceEvent'
+import KteoEvent from '../views/KteoEvent'
 
 function App() {
   const [refresh, setRefresh] = React.useState(false)
@@ -40,6 +41,10 @@ function App() {
     return <ServiceEvent navigation={navigation} handleRefresh={handleRefresh} />
   }
 
+  function GoToKteoEvent({ navigation }) {
+    return <KteoEvent navigation={navigation} handleRefresh={handleRefresh} />
+  }
+
   const Stack = createStackNavigator()
 
   return (
@@ -66,6 +71,7 @@ function App() {
           name='service_event'
           component={GoToServiceEvent}
         />
+        <Stack.Screen options={{ title: 'KTEO' }} name='kteo_event' component={GoToKteoEvent} />
       </Stack.Navigator>
     </NavigationContainer>
   )
