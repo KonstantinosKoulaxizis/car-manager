@@ -45,14 +45,22 @@ export default function AddServiceEvents(props) {
 
   const handleExtraEvents = () => {
     const newEntries = []
+    let data
+
+    if (props.tires) {
+      data = TireTypes
+    } else {
+      data = ServiceTypes
+    }
+
     props.loadedItem.forEach(i => {
-      const existing = ServiceTypes.find(s => s === i)
+      const existing = data.find(s => s === i)
 
       if (!existing) {
         newEntries.push(i)
       }
     })
-    setData([...ServiceTypes, ...newEntries])
+    setData([...data, ...newEntries])
   }
 
   useEffect(() => {

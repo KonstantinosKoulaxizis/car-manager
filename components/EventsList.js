@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import EventModal from './EventModal'
 
-export default function EventsList( props) {
+export default function EventsList(props) {
   const [carEvents, setCarEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState({})
   const [modalVisible, setModalVisible] = useState(false)
@@ -73,10 +73,22 @@ export default function EventsList( props) {
           <ListItem.Chevron />
         </ListItem>
       )}
+      {item.type === 'insurance' && (
+        <ListItem key={i} bottomDivider onPress={() => handleEventModal(item)}>
+          <Icon name='card-account-details' size={24} color='#6d75a8' />
+          <ListItem.Content>
+            <ListItem.Title>Ασφάλεια</ListItem.Title>
+            <Text>{moment(item.date).format('DD - MM - YYYY')}</Text>
+            <Text>Κόστος: {item.cost} €</Text>
+            <Text>Διάρκεια: {item.duration} Μήνες</Text>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      )}
     </View>
   )
 
-  const handleEventModal = (item) => {
+  const handleEventModal = item => {
     setItemsIndex(carEvents.indexOf(item))
     setSelectedEvent(item)
     setModalVisible(!modalVisible)

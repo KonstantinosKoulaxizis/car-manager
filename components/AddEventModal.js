@@ -15,6 +15,8 @@ const AddEventModal = props => {
       props.navigation.navigate('kteo_event')
     } else if (type === 'tires') {
       props.navigation.navigate('tire_event')
+    } else if (type === 'insurance') {
+      props.navigation.navigate('insurance_event')
     }
   }
 
