@@ -9,6 +9,7 @@ import ServiceType from './modalTypes/ServiceType'
 import KteoType from './modalTypes/KteoType'
 import TireType from './modalTypes/TireType'
 import InsuranceType from './modalTypes/InsuranceType'
+import FumesType from './modalTypes/FumesType'
 
 const EventModal = props => {
   const [editItem, setEditItem] = useState(false)
@@ -29,6 +30,8 @@ const EventModal = props => {
         return 'Ελαστικά'
       } else if (props.item.type === 'insurance') {
         return 'Ασφάλεια'
+      } else if (props.item.type === 'fumes') {
+        return 'Κάρτα Καυσαερίων'
       }
     }
   }
@@ -91,6 +94,16 @@ const EventModal = props => {
           )}
           {props.item.type && props.item.type === 'insurance' && (
             <InsuranceType
+              item={props.item}
+              editItem={editItem}
+              handleEditItem={handleEditItem}
+              itemsIndex={props.itemsIndex}
+              handleRefresh={props.handleRefresh}
+              handleModalStatus={props.handleModalStatus}
+            />
+          )}
+          {props.item.type && props.item.type === 'fumes' && (
+            <FumesType
               item={props.item}
               editItem={editItem}
               handleEditItem={handleEditItem}

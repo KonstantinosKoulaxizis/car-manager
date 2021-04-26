@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import DatePicker from '../components/DatePicker'
 import EventUtils from '../utils/EventUtils'
 import AddServiceEvents from '../components/AddServiceEvents'
+import Notifications from '../components/Notifications'
 
 export default function ServiceEvent(props) {
   const [carMeter, setCarMeter] = useState('')
@@ -60,14 +61,6 @@ export default function ServiceEvent(props) {
     setServiceArray(arr)
   }
 
-  const handleIsDisabled = () => {
-    if (!dateError && carMeter.length && finalCost && finalCost.length && serviceArray.length > 0) {
-      return false
-    } else {
-      return true
-    }
-  }
-
   const handleRemove = i => {
     const remaining = serviceArray.filter(s => s !== i)
     setServiceArray(remaining)
@@ -112,6 +105,8 @@ export default function ServiceEvent(props) {
             keyboardType={'numeric'}
             disabled={!serviceArray.length}
           />
+
+          <Notifications />
         </>
       ) : (
         <Text style={{ color: '#ee3e54' }}>* Παρακαλώ επιλέξτε μια η περισσότερες εργασίες</Text>
@@ -124,7 +119,6 @@ export default function ServiceEvent(props) {
           containerStyle={{ paddingTop: 30, paddingBottom: 40, borderRadius: 25 }}
           icon={<Icon name='content-save' size={25} color='#d2d6ef' style={{ marginRight: 15 }} />}
           onPress={handleAddGasEvent}
-          disabled={handleIsDisabled()}
         />
       </View>
       <Snackbar

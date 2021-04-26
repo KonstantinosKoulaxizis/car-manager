@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import DatePicker from '../components/DatePicker'
 import EventUtils from '../utils/EventUtils'
+import Notifications from '../components/Notifications'
 
 export default function InsuranceEvent(props) {
   const [carMeter, setCarMeter] = useState('')
@@ -92,6 +93,9 @@ export default function InsuranceEvent(props) {
         value={finalCost}
         keyboardType={'numeric'}
       />
+
+      <Notifications />
+      
       <View>
         <Button
           title='Αποθήκευση'

@@ -11,6 +11,7 @@ import ServiceEvent from '../views/ServiceEvent'
 import KteoEvent from '../views/KteoEvent'
 import TireEvent from '../views/TireEvent'
 import InsuranceEvent from '../views/InsuranceEvent'
+import FumesEvent from '../views/FumesEvent'
 
 function App() {
   const [refresh, setRefresh] = React.useState(false)
@@ -55,6 +56,10 @@ function App() {
     return <InsuranceEvent navigation={navigation} handleRefresh={handleRefresh} />
   }
 
+  function GoToFumesEvent({ navigation }) {
+    return <FumesEvent navigation={navigation} handleRefresh={handleRefresh} />
+  }
+
   const Stack = createStackNavigator()
 
   return (
@@ -82,15 +87,16 @@ function App() {
           component={GoToServiceEvent}
         />
         <Stack.Screen options={{ title: 'KTEO' }} name='kteo_event' component={GoToKteoEvent} />
-        <Stack.Screen
-          options={{ title: 'Ελαστικά' }}
-          name='tire_event'
-          component={GoToInsuranceEvent}
-        />
+        <Stack.Screen options={{ title: 'Ελαστικά' }} name='tire_event' component={GoToTireEvent} />
         <Stack.Screen
           options={{ title: 'Ασφάλεια' }}
           name='insurance_event'
           component={GoToInsuranceEvent}
+        />
+        <Stack.Screen
+          options={{ title: 'Κάρτα Καυσαερίων' }}
+          name='fumes_event'
+          component={GoToFumesEvent}
         />
       </Stack.Navigator>
     </NavigationContainer>

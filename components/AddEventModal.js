@@ -17,6 +17,8 @@ const AddEventModal = props => {
       props.navigation.navigate('tire_event')
     } else if (type === 'insurance') {
       props.navigation.navigate('insurance_event')
+    } else if (type === 'fumes') {
+      props.navigation.navigate('fumes_event')
     }
   }
 
@@ -65,6 +67,21 @@ const AddEventModal = props => {
                 <Icon name='car-settings' size={25} color='#d2d6ef' style={{ marginRight: 10 }} />
               }
               onPress={() => handleSelectedAction('kteo')}
+            />
+
+            <Button
+              title='Κάρτα Καυσαερίων'
+              buttonStyle={styles.registerButton}
+              containerStyle={{ marginTop: 30, borderRadius: 25 }}
+              icon={
+                <Icon
+                  name='card-account-details-star'
+                  size={25}
+                  color='#d2d6ef'
+                  style={{ marginRight: 10 }}
+                />
+              }
+              onPress={() => handleSelectedAction('fumes')}
             />
 
             <Button
