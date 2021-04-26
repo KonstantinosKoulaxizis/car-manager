@@ -10,8 +10,17 @@ export default function ModalButtons(props) {
     try {
       const rawList = await AsyncStorage.getItem('car_events')
       const list = JSON.parse(rawList)
+
+      const carInfoRaw = await AsyncStorage.getItem('carInfo')
+      const carInfoObj = JSON.parse(carInfoRaw)
+
+      if (Number(props.item.km) > Number(carInfoObj.km)){
+        carInfoObj.km = props.item.km
+        await AsyncStorage.setItem('carInfo', JSON.parse(carInfoObj))
+      }
+
       list[props.itemsIndex] = props.item
-      console.log("🚀 ~ file: ModalButtons.js ~ line 14 ~ handleUpdateItem ~ list", list)
+      console.log('🚀 ~ file: ModalButtons.js ~ line 14 ~ handleUpdateItem ~ list', list)
       await AsyncStorage.setItem('car_events', JSON.stringify(list))
       props.handleModalStatus()
       props.handleRefresh()

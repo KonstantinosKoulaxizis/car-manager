@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
-import NumberFormat from 'react-number-format'
-import { Snackbar, RadioButton } from 'react-native-paper'
 import { StyleSheet, View, Text, Modal, ScrollView } from 'react-native'
-import { Input, Button, CheckBox, Divider } from 'react-native-elements'
+import { Input, Button, CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import DropDownPicker from 'react-native-dropdown-picker'
 
 import ServiceTypes from '../utils/ServiceTypes'
-import DatePicker from './DatePicker'
 
 export default function AddServiceEvents(props) {
   const [data, setData] = useState([])
@@ -46,9 +42,25 @@ export default function AddServiceEvents(props) {
     setModalVisibleEvent(false)
   }
 
+  const handleExtraEvents = () => {
+    props.loadedItem.forEach(i => {
+      const existing = ServiceTypes.find(s => s === i)
+
+      if (!existing) {
+        setData([...data, i])
+      }
+    })
+  }
+
   useEffect(() => {
-    setData(ServiceTypes)
+    if (props.loadedItem) {
+      setServiceArray(props.loadedItem)
+      handleExtraEvents()
+    } else {
+      setData(ServiceTypes)
+    }
   }, [])
+
   return (
     <View>
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>

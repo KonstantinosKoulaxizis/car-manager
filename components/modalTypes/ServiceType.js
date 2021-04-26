@@ -82,7 +82,11 @@ export default function ServiceType(props) {
       />
 
       {props.editItem && (
-        <AddServiceEvents handleAddEvent={handleAddEvent} serviceArray={serviceArray} />
+        <AddServiceEvents
+          handleAddEvent={handleAddEvent}
+          serviceArray={serviceArray}
+          loadedItem={serviceArray}
+        />
       )}
       {serviceArray && serviceArray.length > 0 ? (
         <>
