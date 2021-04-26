@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { StyleSheet, View } from 'react-native'
+import NumberFormat from 'react-number-format'
+import { StyleSheet, View, ScrollView } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { Snackbar } from 'react-native-paper'
 
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand }) {
   const [carModel, setCarModel] = useState('')
@@ -19,7 +20,7 @@ export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand
   const handleCarInfo = async () => {
     if (carModel.length && carYear.length && carCubics.length && carMeter.length) {
       const carInfo = {
-        model: carMeter,
+        model: carModel,
         year: carYear,
         cc: carCubics,
         km: carMeter,
@@ -28,8 +29,10 @@ export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand
       }
       try {
         await AsyncStorage.setItem('carInfo', JSON.stringify(carInfo))
+        await AsyncStorage.setItem('starting_date', JSON.stringify(new Date()))
+        navigation.navigate('main')
       } catch (error) {
-        console.log('🚀 ~ file: CarInfo.js ~ line 30 ~ handleCarInfo ~ error', error)
+        navigation.navigate('free_account')
       }
     } else {
       setVisible(true)
@@ -39,39 +42,80 @@ export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand
   const handleGoBack = () => {
     handleSelectedBrand({})
   }
-  // TODO load data form async storage
-  // fix inputs to get numbers
-  // 1.000 add dot
-  // fix focus
+
+  const getStoredData = async () => {
+    const storedDataRaw = await AsyncStorage.getItem('carInfo')
+    const storedData = JSON.parse(storedDataRaw)
+
+    if (storedData && storedData.cc) {
+      setCarCubics(storedData.cc)
+    }
+
+    if (storedData && storedData.km) {
+      setCarMeter(storedData.km)
+    }
+
+    if (storedData && storedData.model) {
+      setCarModel(storedData.model)
+    }
+
+    if (storedData && storedData.year) {
+      setCarYear(storedData.year)
+    }
+
+    if (storedData && storedData.brand && storedData.logo) {
+      const item = {
+        name: storedData.brand,
+        logo: storedData.logo
+      }
+      handleSelectedBrand(item)
+    }
+  }
+
+  useEffect(() => {
+    getStoredData()
+  }, [])
+
   return (
-    <View>
+    <ScrollView>
       <Input
         label='Μοντέλο'
         placeholder='π.χ. Golf'
-        leftIcon={<Icon name='user' size={24} color='black' />}
+        leftIcon={<Icon name='car-side' size={24} color='black' />}
         onChangeText={value => setCarModel(value)}
         value={carModel}
       />
       <Input
         label='Χρονολογία'
         placeholder='π.χ. 2021'
-        leftIcon={<Icon name='user' size={24} color='black' />}
+        leftIcon={<Icon name='calendar' size={24} color='black' />}
         onChangeText={value => setCarYear(value)}
         value={carYear}
+        keyboardType={'numeric'}
       />
       <Input
-        label='Κυβικά'
+        label='Κυβικά (cc)'
         placeholder='π.χ. 1.800'
-        leftIcon={<Icon name='user' size={24} color='black' />}
+        leftIcon={<Icon name='car' size={24} color='black' />}
         onChangeText={value => setCarCubics(value)}
         value={carCubics}
+        keyboardType={'numeric'}
       />
-      <Input
-        label='Χιλιόμετρα'
-        placeholder='π.χ. 12.000'
-        leftIcon={<Icon name='user' size={24} color='black' />}
-        onChangeText={value => setCarMeter(value)}
+
+      <NumberFormat
         value={carMeter}
+        displayType={'text'}
+        thousandSeparator={true}
+        renderText={value => (
+          <Input
+            label='Χιλιόμετρα (km)'
+            placeholder='π.χ. 12.000'
+            leftIcon={<Icon name='speedometer' size={24} color='black' />}
+            onChangeText={setCarMeter}
+            value={value}
+            keyboardType={'numeric'}
+          />
+        )}
       />
       <View>
         <Button
@@ -102,7 +146,7 @@ export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand
       >
         Παρακαλώ συμπληρώστε όλα τα πεδία
       </Snackbar>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -132,7 +176,8 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 25,
     alignSelf: 'center',
-    marginBottom: 30
+    marginBottom: 30,
+    backgroundColor: '#1b2254'
   },
   backButton: {
     width: 140,

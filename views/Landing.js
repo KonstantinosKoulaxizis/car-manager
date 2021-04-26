@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 import { Button } from 'react-native-elements'
 
-const image = { uri: 'https://www.modirent.gr/images/modirent-slider1.jpg' }
+const image = '../assets/app_cover.jpg'
 
 export default function App({ navigation }) {
   const handleExistingUser = async () => {
     const username = await AsyncStorage.getItem('usersName')
-    const carInfo = await AsyncStorage.getItem('carInfo')
-    console.log('🚀 ~ file: Landing.js ~ line 14 ~ handleExistingUser ~ carInfo', carInfo)
+    const carInfoRaw = await AsyncStorage.getItem('carInfo')
+    const carInfo = JSON.parse(carInfoRaw)
 
     if (username && username.length && username.length > 0 && !carInfo) {
       navigation.navigate('free_account')
     } else if (username && username.length && username.length > 0 && carInfo) {
-      navigation.navigate('free_account')
+      navigation.navigate('main')
     }
   }
 
@@ -24,7 +25,7 @@ export default function App({ navigation }) {
   }, [])
   return (
     <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image}>
+      <ImageBackground source={require(image)} style={styles.image}>
         <Text style={styles.text}>Kalos ir8ate sto NAME_OF_THE_APP</Text>
         <View style={styles.buttonsGrid}>
           <Button
@@ -37,6 +38,7 @@ export default function App({ navigation }) {
             title='Pro Account'
             buttonStyle={styles.registerButton}
             containerStyle={{ marginTop: 30, borderRadius: 25 }}
+            icon={<Icon name='star' size={25} color='#edc919' style={{ marginRight: 10 }} />}
           />
         </View>
       </ImageBackground>
@@ -68,6 +70,7 @@ const styles = StyleSheet.create({
   registerButton: {
     width: 240,
     height: 60,
-    borderRadius: 25
+    borderRadius: 25,
+    backgroundColor: '#1b2254'
   }
 })

@@ -6,7 +6,7 @@ import { ListItem, Avatar, SearchBar } from 'react-native-elements'
 import CarsAndBrands from '../utils/CarsAndBrands'
 import CarInfo from '../components/CarInfo'
 
-const image = { uri: 'https://www.modirent.gr/images/modirent-slider1.jpg' }
+const image = '../assets/app_cover.jpg'
 
 export default function AddCar({ navigation }) {
   const [searchValue, setSearchValue] = useState('')
@@ -47,12 +47,16 @@ export default function AddCar({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image}>
+      <ImageBackground source={require(image)} style={styles.image}>
         <View style={styles.textField}>
           {selectedBrand && selectedBrand.name ? (
-            <CarInfo selectedBrand={selectedBrand} handleSelectedBrand={handleSelectedBrand} />
+            <CarInfo
+              selectedBrand={selectedBrand}
+              handleSelectedBrand={handleSelectedBrand}
+              navigation={navigation}
+            />
           ) : (
-            <View >
+            <View>
               <Text style={styles.textStyle}>Choose your car's brand</Text>
               <SearchBar
                 lightTheme='true'
@@ -97,7 +101,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
   },
   confirmationButton: {
     width: 140,

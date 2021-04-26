@@ -5,22 +5,43 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Landing from '../views/Landing'
 import RegistrationModal from '../views/RegistrationModal'
 import AddCar from '../views/AddCar'
-
-function Registration({ navigation }) {
-  return <Landing navigation={navigation} />
-}
-
-function NewUser({ navigation }) {
-  return <RegistrationModal navigation={navigation} />
-}
-
-function AddNewCar({ navigation }) {
-  return <AddCar navigation={navigation} />
-}
-
-const Stack = createStackNavigator()
+import Main from '../views/Main'
+import GasEvent from '../views/GasEvent'
+import ServiceEvent from '../views/ServiceEvent'
 
 function App() {
+  const [refresh, setRefresh] = React.useState(false)
+
+  const handleRefresh = () => {
+    setRefresh(!refresh)
+  }
+
+  function Registration({ navigation }) {
+    return <Landing navigation={navigation} />
+  }
+
+  function NewUser({ navigation }) {
+    return <RegistrationModal navigation={navigation} />
+  }
+
+  function AddNewCar({ navigation }) {
+    return <AddCar navigation={navigation} />
+  }
+
+  function MainView({ navigation }) {
+    return <Main navigation={navigation} refresh={refresh} handleRefresh={handleRefresh} />
+  }
+
+  function GoToGasEvent({ navigation }) {
+    return <GasEvent navigation={navigation} handleRefresh={handleRefresh} />
+  }
+
+  function GoToServiceEvent({ navigation }) {
+    return <ServiceEvent navigation={navigation} handleRefresh={handleRefresh} />
+  }
+
+  const Stack = createStackNavigator()
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Back'>
@@ -32,6 +53,18 @@ function App() {
           name='add_car'
           options={{ title: 'Προσθήκη Οχήματος' }}
           component={AddNewCar}
+        />
+
+        <Stack.Screen options={{ headerShown: false }} name='main' component={MainView} />
+        <Stack.Screen
+          options={{ title: 'Ανεφοδιασμός' }}
+          name='gas_event'
+          component={GoToGasEvent}
+        />
+        <Stack.Screen
+          options={{ title: 'Service' }}
+          name='service_event'
+          component={GoToServiceEvent}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -7,7 +7,7 @@ import { Snackbar } from 'react-native-paper'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-const image = { uri: 'https://www.modirent.gr/images/modirent-slider1.jpg' }
+const image = '../assets/app_cover.jpg'
 
 export default function RegistrationModal({ navigation }) {
   const [usersName, setUsersName] = useState('')
@@ -40,7 +40,7 @@ export default function RegistrationModal({ navigation }) {
   }, [])
   return (
     <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image}>
+      <ImageBackground source={require(image)} style={styles.image}>
         <View style={styles.textField}>
           <View>
             <Text style={styles.textStyle}>Παρακαλώ εισάγετε το όνομα σας</Text>
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 25,
     alignSelf: 'center',
-    marginBottom: 30
+    marginBottom: 30,
+    backgroundColor: '#1b2254'
   }
 })
