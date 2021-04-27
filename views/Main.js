@@ -4,12 +4,16 @@ import OverView from './OverView'
 import MockGraphs from './MockGraphs'
 import MockService from './MockService'
 
+import ExpensesView from './ExpensesView'
+
 const Main = (props) => {
   const OverViewRoute = () => (
     <OverView navigation={props.navigation} handleRefresh={props.handleRefresh} />
   )
 
-  const ExpensesRoute = () => <MockGraphs />
+  // const ExpensesRoute = () => <MockGraphs />
+    const ExpensesRoute = () => <ExpensesView />
+
 
   const ServiceRoute = () => <MockService />
 
