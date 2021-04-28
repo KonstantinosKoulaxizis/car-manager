@@ -26,6 +26,7 @@ export default function MainFilter(props) {
 
   const handleOpenFilters = () => {
     setOpenFilters(!openFilters)
+    props.handleOpenModal(!openFilters)
   }
 
   const handleModalStatus = () => {
