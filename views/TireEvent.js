@@ -117,7 +117,7 @@ export default function TireEvent(props) {
           <Notifications />
         </>
       ) : (
-        <Text style={{ color: '#ee3e54' }}>* Παρακαλώ επιλέξτε μια η περισσότερες εργασίες</Text>
+        <Text style={{ color: '#bf1e2d' }}>* Παρακαλώ επιλέξτε μια η περισσότερες εργασίες</Text>
       )}
 
       <View>
@@ -134,7 +134,7 @@ export default function TireEvent(props) {
         visible={visible}
         duration={2000}
         onDismiss={onDismissSnackBar}
-        theme={{ colors: { accent: '#ee3e54' } }}
+        theme={{ colors: { accent: '#bf1e2d' } }}
         action={{
           label: 'close',
           onPress: () => {

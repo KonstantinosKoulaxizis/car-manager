@@ -63,7 +63,7 @@ export default function RegistrationModal({ navigation }) {
         visible={visible}
         duration={2000}
         onDismiss={onDismissSnackBar}
-        theme={{ colors: { accent: '#ee3e54' } }}
+        theme={{ colors: { accent: '#bf1e2d' } }}
         action={{
           label: 'close',
           onPress: () => {

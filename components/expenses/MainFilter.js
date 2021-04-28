@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { StyleSheet, Text, View, ScrollView, Modal } from 'react-native'
-import { Button, Divider } from 'react-native-elements'
+import { StyleSheet, Text, View, Modal } from 'react-native'
+import { Button } from 'react-native-elements'
+
+import TimeFilter from './TimeFilter'
+import TextContainer from './TextContainer'
+import TypeButtons from './TypeButtons'
 
 const OPTIONS = [
   { title: 'Χωρίς φίλτρο', type: 'no_filter', name: 'filter-variant-remove' },
@@ -15,17 +19,17 @@ const OPTIONS = [
   { title: 'Ασφάλεια', type: 'insurance', name: 'card-account-details' }
 ]
 
-export default function MockService(props) {
+export default function MainFilter(props) {
   const [selectedType, setSelectedType] = useState({})
   const [openModal, setOpenModal] = useState(false)
-  const [activeTab, setActiveTab] = useState('table')
+  const [openFilters, setOpenFilters] = useState(false)
+
+  const handleOpenFilters = () => {
+    setOpenFilters(!openFilters)
+  }
 
   const handleModalStatus = () => {
     setOpenModal(!openModal)
-  }
-
-  const handleActiveTab = type => {
-    setActiveTab(type)
   }
 
   const handleFilterChange = selected => {
@@ -53,64 +57,51 @@ export default function MockService(props) {
 
   return (
     <View style={styles.container}>
-      <Button
-        title={
-          selectedType.title && selectedType.title !== 'Χωρίς φίλτρο'
-            ? selectedType.title
-            : 'Επέλεξε φίλτρο'
-        }
-        buttonStyle={{ borderRadius: 25, backgroundColor: '#1b2254' }}
-        onPress={handleModalStatus}
-        icon={
-          <Icon
-            name={
-              selectedType.name && selectedType.name !== 'filter-variant-remove'
-                ? selectedType.name
-                : 'filter-variant'
+      {!openFilters ? (
+        <>
+          <Button
+            title='Φίλτρα'
+            buttonStyle={{ borderRadius: 25, backgroundColor: '#1b2254', height: 50 }}
+            onPress={handleOpenFilters}
+            icon={
+              <Icon name='filter-variant' size={25} color='#d2d6ef' style={{ marginRight: 10 }} />
             }
-            size={25}
-            color='#d2d6ef'
-            style={{ marginRight: 10 }}
           />
-        }
-      />
+          <TypeButtons handleActiveTab={props.handleActiveTab} />
+          <TextContainer selectedType={selectedType} />
+        </>
+      ) : (
+        <View
+          style={{
+            backgroundColor: '#e0dbdb',
+            height: 360,
+            borderRadius: 25
+          }}
+        >
+          <Button
+            title={selectedType.title ? selectedType.title : 'Χωρίς φίλτρο'}
+            buttonStyle={{
+              borderRadius: 25,
+              backgroundColor: '#1b2254',
+              height: 50,
+              marginTop: 20,
+              width: 250,
+              alignSelf: 'center'
+            }}
+            onPress={handleModalStatus}
+            icon={
+              <Icon
+                name={selectedType.name ? selectedType.name : 'filter-variant'}
+                size={25}
+                color='#d2d6ef'
+                style={{ marginRight: 10 }}
+              />
+            }
+          />
 
-      <View style={styles.buttonsView}>
-        <Button
-          title='Πίνακας'
-          buttonStyle={styles.typeButtons}
-          titleStyle={{ fontSize: 14, color: '#1b2254' }}
-          onPress={() => handleActiveTab('table')}
-          icon={
-            <Icon
-              name='table'
-              size={23}
-              color={activeTab === 'table' ? '#d2d6ef' : '#1b2254'}
-              style={{ marginRight: 10 }}
-            />
-          }
-          disabledStyle={styles.typeButtonsActive}
-          disabledTitleStyle={{ color: '#fff' }}
-          disabled={activeTab === 'table'}
-        />
-        <Button
-          title='Γραφήματα'
-          buttonStyle={styles.typeButtons}
-          titleStyle={{ fontSize: 14, color: '#1b2254' }}
-          onPress={() => handleActiveTab('graph')}
-          icon={
-            <Icon
-              name='chart-areaspline'
-              size={23}
-              color={activeTab === 'graph' ? '#d2d6ef' : '#1b2254'}
-              style={{ marginRight: 10 }}
-            />
-          }
-          disabledStyle={styles.typeButtonsActive}
-          disabledTitleStyle={{ color: '#fff' }}
-          disabled={activeTab === 'graph'}
-        />
-      </View>
+          <TimeFilter handleOpenFilters={handleOpenFilters} />
+        </View>
+      )}
 
       <Modal
         animationType='fade'
@@ -197,5 +188,12 @@ const styles = StyleSheet.create({
     borderColor: '#1b2254',
     width: 150,
     borderRadius: 25
+  },
+  textContainer: {
+    marginTop: 20,
+    alignSelf: 'center',
+    backgroundColor: 'red',
+    padding: 15,
+    borderRadius: 15
   }
 })

@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import { Button, Divider } from 'react-native-elements'
-import DatePicker from '../components/DatePicker'
+import { StyleSheet, View } from 'react-native'
 
 import MainFilter from '../components/expenses/MainFilter'
 export default function MockService(props) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [activeTab, setActiveTab] = useState('')
 
   const handleData = d => {
     setData(d)
@@ -16,9 +15,14 @@ export default function MockService(props) {
   const handleLoading = l => {
     setLoading(l)
   }
+
+  const handleActiveTab = type => {
+    setActiveTab(type)
+  }
+
   return (
     <View style={styles.container}>
-      <MainFilter handleData={handleData} />
+      <MainFilter handleData={handleData} handleActiveTab={handleActiveTab} />
     </View>
   )
 }

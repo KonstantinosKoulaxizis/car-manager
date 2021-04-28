@@ -76,7 +76,7 @@ export default function DatePicker(props) {
           onChangeText={value => handleDateUpdate(value, 'day')}
           value={day}
           keyboardType={'numeric'}
-          errorStyle={{ color: '#ee3e54' }}
+          errorStyle={{ color: '#bf1e2d' }}
           errorMessage={dateError('day') ? 'Please enter a valid year' : ''}
           disabled={!props.editItem}
           labelStyle={props.smallSize ? { fontSize: 14 } : {}}
@@ -89,7 +89,7 @@ export default function DatePicker(props) {
           onChangeText={value => handleDateUpdate(value, 'month')}
           value={month}
           keyboardType={'numeric'}
-          errorStyle={{ color: '#ee3e54' }}
+          errorStyle={{ color: '#bf1e2d' }}
           errorMessage={dateError('month') ? 'Please enter a valid year' : ''}
           disabled={!props.editItem}
           labelStyle={props.smallSize ? { fontSize: 14 } : {}}
@@ -102,7 +102,7 @@ export default function DatePicker(props) {
           onChangeText={value => handleDateUpdate(value, 'year')}
           value={year}
           keyboardType={'numeric'}
-          errorStyle={{ color: '#ee3e54' }}
+          errorStyle={{ color: '#bf1e2d' }}
           errorMessage={dateError('year') ? 'Please enter a valid year' : ''}
           disabled={!props.editItem}
           labelStyle={props.smallSize ? { fontSize: 14 } : {}}

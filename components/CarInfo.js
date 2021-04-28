@@ -136,7 +136,7 @@ export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand
         visible={visible}
         duration={2000}
         onDismiss={onDismissSnackBar}
-        theme={{ colors: { accent: '#ee3e54' } }}
+        theme={{ colors: { accent: '#bf1e2d' } }}
         action={{
           label: 'close',
           onPress: () => {
@@ -185,6 +185,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     alignSelf: 'center',
     marginBottom: 30,
-    backgroundColor: '#ee3e54'
+    backgroundColor: '#bf1e2d'
   }
 })

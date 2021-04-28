@@ -26,7 +26,7 @@ export default function Notifications(props) {
         />
       </View>
       {isEnabled && (
-        <Text style={{ marginTop: 11, marginLeft: 10, color: '#ee3e54', fontWeight: 'bold' }}>
+        <Text style={{ marginTop: 11, marginLeft: 10, color: '#bf1e2d', fontWeight: 'bold' }}>
           * Διαθέσιμο μόνο στο Pro
         </Text>
       )}
