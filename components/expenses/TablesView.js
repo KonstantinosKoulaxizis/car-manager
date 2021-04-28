@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
-import {  Divider } from 'react-native-elements'
+import { Divider } from 'react-native-elements'
 
 export default function TablesView(props) {
   const [tablesData, setTablesData] = useState([])
@@ -22,13 +22,17 @@ export default function TablesView(props) {
         }
       }
     })
-    if (formatedObj && formatedObj.length > 0) {
-      setTablesData(Object.values(formatedObj))
+
+    const formatedArray = Object.values(formatedObj)
+    if (formatedArray) {
+      setTablesData(formatedArray)
     }
   }
 
   useEffect(() => {
-    handleTablesData()
+    if (props.data) {
+      handleTablesData()
+    }
   }, [props.data])
   return (
     <View style={props.openModal ? styles.container : styles.containerModal}>
@@ -36,7 +40,7 @@ export default function TablesView(props) {
         {tablesData && tablesData.length > 0 ? (
           <View>
             <Text style={styles.textTitle}>Αποτελέσματα Aναζήτησης</Text>
-            <Divider style={{marginBottom: 15}}/>
+            <Divider style={{ marginBottom: 15 }} />
             {tablesData.map((d, index) => (
               <Text key={index}>{d.type}</Text>
             ))}
@@ -71,8 +75,8 @@ const styles = StyleSheet.create({
     marginTop: -230
   },
   textTitle: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      marginBottom: 5
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 5
   }
 })

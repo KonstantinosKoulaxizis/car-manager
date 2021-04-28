@@ -37,6 +37,8 @@ export default function MainFilter(props) {
     setSelectedType(selected)
     handleCarData(selected)
     handleModalStatus()
+    // TODO Remove in pro
+    handleOpenFilters()
   }
 
   const handleCarData = async selected => {
