@@ -30,6 +30,21 @@ export default function ModalButtons(props) {
       console.log(error)
     }
   }
+
+  const handleDeleteItem = async () => {
+    try {
+      const rawList = await AsyncStorage.getItem('car_events')
+      const list = JSON.parse(rawList)
+
+      list.splice(props.itemsIndex, 1)
+      await AsyncStorage.setItem('car_events', JSON.stringify(list))
+      props.handleModalStatus()
+      props.handleRefresh()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       {props.editItem ? (
@@ -74,6 +89,7 @@ export default function ModalButtons(props) {
             buttonStyle={styles.closeButtonBig}
             containerStyle={{ borderRadius: 25, marginTop: 10 }}
             icon={<Icon name='trash-can' size={24} color='#f0f0f0' style={{ marginRight: 20 }} />}
+            onPress={handleDeleteItem}
           />
         </View>
       )}

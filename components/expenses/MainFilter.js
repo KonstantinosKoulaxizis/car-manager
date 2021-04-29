@@ -76,7 +76,7 @@ export default function MainFilter(props) {
       ) : (
         <View
           style={{
-            backgroundColor: '#e0dbdb',
+            backgroundColor: '#dce0f2',
             height: 360,
             borderRadius: 25
           }}
@@ -114,6 +114,12 @@ export default function MainFilter(props) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
+            <Button
+              buttonStyle={styles.closeButton}
+              containerStyle={{ borderRadius: 50, position: 'absolute', right: 15, top: 15 }}
+              onPress={handleModalStatus}
+              icon={<Icon name='close-thick' size={12} color='#f0f0f0' />}
+            />
             <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>
               Επέλεξε φίλτρο
             </Text>
@@ -198,5 +204,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     padding: 15,
     borderRadius: 15
+  },
+  closeButton: {
+    width: 28,
+    height: 28,
+    backgroundColor: '#bf1e2d'
   }
 })

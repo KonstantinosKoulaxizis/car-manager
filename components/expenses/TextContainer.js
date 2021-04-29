@@ -42,13 +42,14 @@ const styles = StyleSheet.create({
   textContainer: {
     marginTop: 20,
     alignSelf: 'center',
-    backgroundColor: '#e0dbdb',
+    backgroundColor: '#dce0f2',
     padding: 15,
     borderRadius: 15
   },
   textStyle: {
     fontSize: 14,
     alignSelf: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#3c4743'
   }
 })
