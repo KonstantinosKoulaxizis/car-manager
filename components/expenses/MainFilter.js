@@ -76,7 +76,7 @@ export default function MainFilter(props) {
       ) : (
         <View
           style={{
-            backgroundColor: '#dce0f2',
+            backgroundColor: '#dbdbdb',
             height: 360,
             borderRadius: 25
           }}
@@ -123,6 +123,9 @@ export default function MainFilter(props) {
             <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>
               Επέλεξε φίλτρο
             </Text>
+            <Text style={{ fontSize: 13, marginRight: 15, color: '#bf1e2d' }}>
+                * Διαθέσιμο στη Pro έκδοση
+              </Text>
             {OPTIONS.map((i, index) => (
               <View key={index}>
                 <Button
@@ -133,15 +136,18 @@ export default function MainFilter(props) {
                     marginTop: 15,
                     width: 250
                   }}
-                  onPress={() => handleFilterChange(i)}
+                  // onPress={() => handleFilterChange(i)}
                   icon={
                     <Icon
                       name={i.name ? i.name : 'filter-variant-remove'}
                       size={25}
-                      color='#d2d6ef'
+                      // color='#d2d6ef'
+                      color='#b2b2b2'
                       style={{ marginRight: 10 }}
                     />
                   }
+                  // TODO remove disabled
+                  disabled={true}
                 />
               </View>
             ))}

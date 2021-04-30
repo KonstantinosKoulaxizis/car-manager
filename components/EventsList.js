@@ -24,8 +24,8 @@ export default function EventsList(props) {
         >
           <Icon name='star-circle' size={24} color='#e8b500' />
           <ListItem.Content>
-            <ListItem.Title>Ημέρα δημιουργίας λογαριασμού</ListItem.Title>
-            <Text>{moment(item.date).format('DD - MM - YYYY')}</Text>
+            <ListItem.Title style={styles.titleText}>Ημέρα δημιουργίας λογαριασμού</ListItem.Title>
+            <Text style={styles.subText}>{moment(item.date).format('DD - MM - YYYY')}</Text>
           </ListItem.Content>
         </ListItem>
       )}
@@ -33,9 +33,9 @@ export default function EventsList(props) {
         <ListItem key={i} bottomDivider onPress={() => handleEventModal(item)}>
           <Icon name='gas-station' size={24} color='#6d75a8' />
           <ListItem.Content>
-            <ListItem.Title>Ανεφοδιασμός</ListItem.Title>
-            <Text>{moment(item.date).format('DD - MM - YYYY')}</Text>
-            <Text>Κόστος: {item.cost} €</Text>
+            <ListItem.Title style={styles.titleText}>Ανεφοδιασμός</ListItem.Title>
+            <Text style={styles.subText}>{moment(item.date).format('DD - MM - YYYY')}</Text>
+            <Text style={styles.subText}>Κόστος: {item.cost} €</Text>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -44,9 +44,9 @@ export default function EventsList(props) {
         <ListItem key={i} bottomDivider onPress={() => handleEventModal(item)}>
           <Icon name='wrench' size={24} color='#6d75a8' />
           <ListItem.Content>
-            <ListItem.Title>Service</ListItem.Title>
-            <Text>{moment(item.date).format('DD - MM - YYYY')}</Text>
-            <Text>Κόστος: {item.cost} €</Text>
+            <ListItem.Title style={styles.titleText}>Service</ListItem.Title>
+            <Text style={styles.subText}>{moment(item.date).format('DD - MM - YYYY')}</Text>
+            <Text style={styles.subText}>Κόστος: {item.cost} €</Text>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -55,9 +55,9 @@ export default function EventsList(props) {
         <ListItem key={i} bottomDivider onPress={() => handleEventModal(item)}>
           <Icon name='car-settings' size={24} color='#6d75a8' />
           <ListItem.Content>
-            <ListItem.Title>KTEO</ListItem.Title>
-            <Text>{moment(item.date).format('DD - MM - YYYY')}</Text>
-            <Text>Κόστος: {item.cost} €</Text>
+            <ListItem.Title style={styles.titleText}>KTEO</ListItem.Title>
+            <Text style={styles.subText}>{moment(item.date).format('DD - MM - YYYY')}</Text>
+            <Text style={styles.subText}>Κόστος: {item.cost} €</Text>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -66,9 +66,9 @@ export default function EventsList(props) {
         <ListItem key={i} bottomDivider onPress={() => handleEventModal(item)}>
           <Icon name='car-traction-control' size={24} color='#6d75a8' />
           <ListItem.Content>
-            <ListItem.Title>Ελαστικά</ListItem.Title>
-            <Text>{moment(item.date).format('DD - MM - YYYY')}</Text>
-            <Text>Κόστος: {item.cost} €</Text>
+            <ListItem.Title style={styles.titleText}>Ελαστικά</ListItem.Title>
+            <Text style={styles.subText}>{moment(item.date).format('DD - MM - YYYY')}</Text>
+            <Text style={styles.subText}>Κόστος: {item.cost} €</Text>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -77,10 +77,10 @@ export default function EventsList(props) {
         <ListItem key={i} bottomDivider onPress={() => handleEventModal(item)}>
           <Icon name='card-account-details' size={24} color='#6d75a8' />
           <ListItem.Content>
-            <ListItem.Title>Ασφάλεια</ListItem.Title>
-            <Text>{moment(item.date).format('DD - MM - YYYY')}</Text>
-            <Text>Κόστος: {item.cost} €</Text>
-            <Text>Διάρκεια: {item.duration} Μήνες</Text>
+            <ListItem.Title style={styles.titleText}>Ασφάλεια</ListItem.Title>
+            <Text style={styles.subText}>{moment(item.date).format('DD - MM - YYYY')}</Text>
+            <Text style={styles.subText}>Κόστος: {item.cost} €</Text>
+            <Text style={styles.subText}>Διάρκεια: {item.duration} Μήνες</Text>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -89,9 +89,9 @@ export default function EventsList(props) {
         <ListItem key={i} bottomDivider onPress={() => handleEventModal(item)}>
           <Icon name='card-account-details-star' size={24} color='#6d75a8' />
           <ListItem.Content>
-            <ListItem.Title>Κάρτα Καυσαερίων</ListItem.Title>
-            <Text>{moment(item.date).format('DD - MM - YYYY')}</Text>
-            <Text>Κόστος: {item.cost} €</Text>
+            <ListItem.Title style={styles.titleText}>Κάρτα Καυσαερίων</ListItem.Title>
+            <Text style={styles.subText}>{moment(item.date).format('DD - MM - YYYY')}</Text>
+            <Text style={styles.subText}>Κόστος: {item.cost} €</Text>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
@@ -133,5 +133,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 20,
     borderRadius: 25
+  },
+  subText: {
+    fontWeight: 'bold',
+    color: '#3c4743',
+    fontSize: 13,
+    fontStyle: 'italic'
+  },
+  titleText: {
+    fontWeight: 'bold',
+    color: '#3c4743',
+    fontSize: 16,
+    marginBottom: 7
   }
 })

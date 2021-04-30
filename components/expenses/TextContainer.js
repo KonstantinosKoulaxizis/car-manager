@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   textContainer: {
     marginTop: 20,
     alignSelf: 'center',
-    backgroundColor: '#dce0f2',
+    backgroundColor: '#fff',
     padding: 15,
     borderRadius: 15
   },

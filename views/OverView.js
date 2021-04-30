@@ -62,19 +62,19 @@ export default function OverView(props) {
               {carInfo.brand}
             </Text>
           </View>
-          <Text>Modelo: {carInfo.model}</Text>
-          <Text>Xronologia: {carInfo.year}</Text>
+          <Text style={styles.subText}>Μοντέλο: {carInfo.model}</Text>
+          <Text style={styles.subText}>Χρονολογία: {carInfo.year}</Text>
           <NumberFormat
             value={carInfo.cc ? carInfo.cc : ''}
             displayType={'text'}
             thousandSeparator={true}
-            renderText={value => <Text>Kibika: {value} cc</Text>}
+            renderText={value => <Text style={styles.subText}>Κυβικά: {value} cc</Text>}
           />
           <NumberFormat
             value={carInfo.km ? carInfo.km : ''}
             displayType={'text'}
             thousandSeparator={true}
-            renderText={value => <Text>Xiliometra: {value} km</Text>}
+            renderText={value => <Text style={styles.subText}>Χιλιόμετρα: {value} km</Text>}
           />
         </View>
         <Button
@@ -134,6 +134,10 @@ const styles = StyleSheet.create({
     padding: 25,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  subText: {
+    fontWeight: 'bold',
+    color: '#3c4743'
   },
   brandAndLogo: {
     flexDirection: 'row',

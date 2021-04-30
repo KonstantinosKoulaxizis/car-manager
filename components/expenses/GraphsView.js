@@ -6,7 +6,7 @@ import { Divider } from 'react-native-elements'
 
 import CostPie from './graphs/CostPie'
 
-export default function TablesView(props) {
+export default function GraphsView(props) {
   return (
     <View style={props.openModal ? styles.container : styles.containerModal}>
       <ScrollView>

@@ -34,8 +34,8 @@ export default function TimeFilter(props) {
         disabled
       />
 
-      <Text style={{ padding: 5, color: '#c44e4e', padding: 10 }}>
-        * Όλες οι παραπάνω επιλογές για φιλτράρισμα με βάση την ημερομηνία είναι διαθέσιμες στη Pro
+      <Text style={{ padding: 5, color: '#c44e4e', padding: 10}}>
+        * Όλες οι παραπάνω επιλογές για φιλτράρισμα είναι διαθέσιμες στη Pro
         έκδοση.
       </Text>
       <Button

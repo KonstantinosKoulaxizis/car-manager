@@ -62,7 +62,7 @@ export default function CostPie(props) {
     const data = props.data
       .filter(value => value.cost > 0)
       .map((value, index) => ({
-        value: activeTab === 'cost' ? value.cost : value.count,
+        value: activeTab === 'cost' ? Number(value.cost) : Number(value.count),
         svg: {
           fill: handleColor(value.type),
           onPress: () => console.log('press', value)
@@ -81,7 +81,7 @@ export default function CostPie(props) {
   }, [activeTab])
 
   return (
-    <View style={{ backgroundColor: '#dce0f2', padding: 10, borderRadius: 25, width: 320 }}>
+    <View style={{ backgroundColor: '#fff', padding: 10, borderRadius: 25, width: 320 }}>
       <View style={{ marginTop: 20 }}>
         <Text style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 20, alignSelf: 'center' }}>
           Καταμερισμός Εξόδων
@@ -104,7 +104,7 @@ export default function CostPie(props) {
             disabled={activeTab === 'cost'}
           />
           <Button
-            title='Φορές'
+            title='Επισκέψεις'
             buttonStyle={styles.typeButtons}
             titleStyle={{ fontSize: 14, color: '#1b2254' }}
             onPress={() => handleActiveTab('visits')}
@@ -113,7 +113,6 @@ export default function CostPie(props) {
             disabled={activeTab === 'visits'}
           />
         </View>
-        {/* TODO BUTTONS for type */}
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <View style={{ justifyContent: 'center', alignItems: 'flex-start', marginBottom: 20 }}>
             {LABELS.map(label => (
@@ -133,6 +132,7 @@ export default function CostPie(props) {
       </View>
       <PieChart style={{ height: 200, width: 200, alignSelf: 'center' }} data={pieData} />
       <Divider style={{ marginTop: 20 }} />
+      {/* TODO add modal */}
     </View>
   )
 }
