@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
-import { Divider } from 'react-native-elements'
-
 import CostPie from './graphs/CostPie'
+import ExpensesTimeGraoh from './graphs/ExpensesTimeGraoh'
 
 export default function GraphsView(props) {
   return (
     <View style={props.openModal ? styles.container : styles.containerModal}>
       <ScrollView>
         <CostPie data={props.data} />
+        <ExpensesTimeGraoh />
       </ScrollView>
     </View>
   )
