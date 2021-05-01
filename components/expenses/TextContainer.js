@@ -28,12 +28,22 @@ export default function TextContainer(props) {
     handleDates()
   }, [])
   return (
-    <View style={styles.textContainer}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: -10, marginBottom: 10 }}>
+    <View style={props.openFilters ? { height: 0 } : styles.textContainer}>
+      <Text
+        style={
+          props.openFilters
+            ? { height: 0 }
+            : { fontSize: 20, fontWeight: 'bold', marginTop: -10, marginBottom: 10 }
+        }
+      >
         {props.selectedType.title}
       </Text>
-      <Text style={styles.textStyle}>Από: {moment(startDate).format('DD-MM-YYYY')}</Text>
-      <Text style={styles.textStyle}>Έως: {moment(endDate).format('DD-MM-YYYY')}</Text>
+      <Text style={props.openFilters ? { height: 0 } : styles.textStyle}>
+        Από: {moment(startDate).format('DD-MM-YYYY')}
+      </Text>
+      <Text style={props.openFilters ? { height: 0 } : styles.textStyle}>
+        Έως: {moment(endDate).format('DD-MM-YYYY')}
+      </Text>
     </View>
   )
 }

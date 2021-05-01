@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import NumberFormat from 'react-number-format'
 import { StyleSheet, ScrollView, Text } from 'react-native'
-import { Input } from 'react-native-elements'
+import { Input, CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import DatePicker from '../DatePicker'
@@ -92,12 +92,7 @@ export default function ServiceType(props) {
       {serviceArray && serviceArray.length > 0 ? (
         <>
           {serviceArray.map((item, index) => (
-            <Text
-              style={{ fontWeight: 'bold', fontSize: 15, alignSelf: 'center', marginBottom: 20 }}
-              key={index}
-            >
-              {item}
-            </Text>
+            <CheckBox title={item} checked={true} key={index} disabled checkedColor='grey'/>
           ))}
           <Input
             label='Κόστος (€)'

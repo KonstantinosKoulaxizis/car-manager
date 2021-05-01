@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import React from 'react'
 
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import CostPie from './graphs/CostPie'
 import ExpensesTimeGraoh from './graphs/ExpensesTimeGraoh'
+import ConsumptionGraph from './graphs/ConsumptionGraph'
 
 export default function GraphsView(props) {
   return (
@@ -11,6 +11,7 @@ export default function GraphsView(props) {
       <ScrollView>
         <CostPie data={props.data} />
         <ExpensesTimeGraoh />
+        <ConsumptionGraph />
       </ScrollView>
     </View>
   )

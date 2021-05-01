@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
@@ -48,7 +48,7 @@ export default function TablesView(props) {
         <Text style={styles.textTitle}>Αποτελέσματα Aναζήτησης</Text>
       )}
       {props.tablesData && props.tablesData.length > 0 ? (
-        <View>
+        <View style={{marginBottom:45}}>
           <Divider style={{ marginBottom: 15, marginTop: 5 }} />
           <View
             style={{

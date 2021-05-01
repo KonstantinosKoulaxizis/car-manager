@@ -5,8 +5,8 @@ import { Text, View, StyleSheet } from 'react-native'
 import { Button, Divider } from 'react-native-elements'
 import * as shape from 'd3-shape'
 
-export default function ExpensesTimeGraoh(props) {
-  const data = [230, 210, 218, 350, 218, 210, 218, 230, 210, 218, 218, 210, 218]
+export default function ConsumptionGraph(props) {
+  const data = [4.3, 4.2, 4.3, 4.3, 4.4, 4.3, 4.3, 4.3, 4.3, 4.4, 4.3, 4.3, 4.3]
   const labels = [1, 2]
   const contentInset = { top: 30, bottom: 20, left: 50, right: 35 }
 
@@ -20,11 +20,18 @@ export default function ExpensesTimeGraoh(props) {
 
   return (
     <View
-      style={{ backgroundColor: '#fff', padding: 10, borderRadius: 25, width: 320, marginTop: 50 }}
+      style={{
+        backgroundColor: '#fff',
+        padding: 10,
+        borderRadius: 25,
+        width: 320,
+        marginTop: 50,
+        marginBottom: 20
+      }}
     >
       <View style={{ marginTop: 20 }}>
         <Text style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 10, alignSelf: 'center' }}>
-          Έξοδα / Χρόνο
+          Κατανάλωση / Χρόνο
         </Text>
         <Text style={{ fontSize: 13, color: '#bf1e2d', alignSelf: 'center' }}>
           * Διαθέσιμο στη Pro έκδοση
@@ -39,13 +46,13 @@ export default function ExpensesTimeGraoh(props) {
         }}
       >
         <Button
-          title='Μήνας'
+          title='Λίτρα'
           buttonStyle={styles.typeButtons}
           disabledTitleStyle={{ fontSize: 14, color: '#7f7a7a' }}
           disabled={true}
         />
         <Button
-          title='Χρόνος'
+          title='Ευρώ'
           buttonStyle={styles.typeButtons}
           disabledTitleStyle={{ fontSize: 14, color: '#7f7a7a' }}
           disabled={true}
@@ -61,22 +68,25 @@ export default function ExpensesTimeGraoh(props) {
         }}
       >
         <Button
-          title='Ιανουάριος 2021'
+          title={
+            <Text style={{ fontSize: 14, color: '#7f7a7a' }}>
+              Από: 01 Ιανουαρίου 2021 {'\n'}Έως: 31 Ιανουαρίου 2021
+            </Text>
+          }
           buttonStyle={{ ...styles.typeButtons, width: 220 }}
-          disabledTitleStyle={{ fontSize: 14, color: '#7f7a7a' }}
           disabled={true}
         />
       </View>
       <View style={{ height: 200, flexDirection: 'row', marginBottom: 10 }}>
         <YAxis
           data={data}
-          contentInset={{ top: 30, bottom: 0 }}
+          contentInset={{ top: 30, bottom: 10 }}
           svg={{
             fill: 'grey',
             fontSize: 10
           }}
           formatLabel={value => `${value}`}
-          numberOfTicks={3}
+          numberOfTicks={2}
         />
         <AreaChart
           style={{ flex: 1, marginLeft: 16 }}

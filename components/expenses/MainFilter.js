@@ -60,20 +60,7 @@ export default function MainFilter(props) {
 
   return (
     <View style={styles.container}>
-      {!openFilters ? (
-        <>
-          <Button
-            title='Φίλτρα'
-            buttonStyle={{ borderRadius: 25, backgroundColor: '#1b2254', height: 50 }}
-            onPress={handleOpenFilters}
-            icon={
-              <Icon name='filter-variant' size={25} color='#d2d6ef' style={{ marginRight: 10 }} />
-            }
-          />
-          <TypeButtons handleActiveTab={props.handleActiveTab} />
-          <TextContainer selectedType={selectedType} />
-        </>
-      ) : (
+      {openFilters && (
         <View
           style={{
             backgroundColor: '#dbdbdb',
@@ -105,7 +92,18 @@ export default function MainFilter(props) {
           <TimeFilter handleOpenFilters={handleOpenFilters} />
         </View>
       )}
-
+      <View style={openFilters ? { height: 0 } : {}}>
+        <Button
+          title='Φίλτρα'
+          buttonStyle={{ borderRadius: 25, backgroundColor: '#1b2254', height: 50 }}
+          onPress={handleOpenFilters}
+          icon={
+            <Icon name='filter-variant' size={25} color='#d2d6ef' style={{ marginRight: 10 }} />
+          }
+        />
+        <TypeButtons handleActiveTab={props.handleActiveTab} />
+        <TextContainer selectedType={selectedType} openFilters={openFilters} />
+      </View>
       <Modal
         animationType='fade'
         transparent={true}
@@ -124,8 +122,8 @@ export default function MainFilter(props) {
               Επέλεξε φίλτρο
             </Text>
             <Text style={{ fontSize: 13, marginRight: 15, color: '#bf1e2d' }}>
-                * Διαθέσιμο στη Pro έκδοση
-              </Text>
+              * Διαθέσιμο στη Pro έκδοση
+            </Text>
             {OPTIONS.map((i, index) => (
               <View key={index}>
                 <Button

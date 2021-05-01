@@ -1,46 +1,60 @@
 import React, { useEffect, useState } from 'react'
 
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { PieChart } from 'react-native-svg-charts'
 import { Text, View, StyleSheet } from 'react-native'
 import { Button, Divider } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
+import PieClickfrom from './PieClick'
 
 const LABELS = [
   {
     name: 'Ανεφοδιασμός',
     color: '#003f5c',
-    icon: 'gas-station'
+    icon: 'gas-station',
+    type: 'gas'
   },
   {
     name: 'Service',
     color: '#444e86',
-    icon: 'wrench'
+    icon: 'wrench',
+    type: 'service'
   },
   {
     name: 'Κ. Καυσαερίων',
     color: '#ffa600',
-    icon: 'card-account-details-star'
+    icon: 'card-account-details-star',
+    type: 'fumes'
   },
   {
     name: 'KTEO',
     color: '#955196',
-    icon: 'car-settings'
+    icon: 'car-settings',
+    type: 'kteo'
   },
   {
     name: 'Ελαστικά',
     color: '#dd5182',
-    icon: 'car-traction-control'
+    icon: 'car-traction-control',
+    type: 'tires'
   },
   {
     name: 'Ασφάλεια',
     color: '#ff6e54',
-    icon: 'card-account-details'
+    icon: 'card-account-details',
+    type: 'insurance'
   }
 ]
 
 export default function CostPie(props) {
   const [pieData, setPieData] = useState([])
   const [activeTab, setActiveTab] = useState('cost')
+  const [openModal, setOpenModal] = useState(false)
+  const [selected, setSelected] = useState({})
+
+  const handleOpenModal = () => {
+    setOpenModal(!openModal)
+  }
 
   const handleColor = type => {
     if (type === 'gas') {
@@ -58,6 +72,23 @@ export default function CostPie(props) {
     }
   }
 
+  const handleModalData = value => {
+    const name = LABELS.find(l => l.type === value.type)
+    const result = {
+      name: 'Error',
+      icon: 'Error',
+      cost: value.cost,
+      count: value.count
+    }
+    if (name) {
+      result.name = name.name
+      result.icon = name.icon
+    }
+
+    setSelected(result)
+    handleOpenModal()
+  }
+
   const handlePieData = () => {
     const data = props.data
       .filter(value => value.cost > 0)
@@ -65,7 +96,7 @@ export default function CostPie(props) {
         value: activeTab === 'cost' ? Number(value.cost) : Number(value.count),
         svg: {
           fill: handleColor(value.type),
-          onPress: () => console.log('press', value)
+          onPress: () => handleModalData(value)
         },
         key: `pie-${index}`
       }))
@@ -132,7 +163,13 @@ export default function CostPie(props) {
       </View>
       <PieChart style={{ height: 200, width: 200, alignSelf: 'center' }} data={pieData} />
       <Divider style={{ marginTop: 20 }} />
-      {/* TODO add modal */}
+      {openModal && (
+        <PieClickfrom
+          modalVisible={openModal}
+          handleModalStatus={handleOpenModal}
+          selected={selected}
+        />
+      )}
     </View>
   )
 }
