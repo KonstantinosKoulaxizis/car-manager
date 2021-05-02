@@ -58,6 +58,8 @@ export default function MainFilter(props) {
     handleCarData(OPTIONS[0])
   }, [])
 
+  console.log(props.activeTab)
+
   return (
     <View style={styles.container}>
       {openFilters && (
@@ -93,15 +95,17 @@ export default function MainFilter(props) {
         </View>
       )}
       <View style={openFilters ? { height: 0 } : {}}>
-        <Button
-          title='Φίλτρα'
-          buttonStyle={{ borderRadius: 25, backgroundColor: '#1b2254', height: 50 }}
-          onPress={handleOpenFilters}
-          icon={
-            <Icon name='filter-variant' size={25} color='#d2d6ef' style={{ marginRight: 10 }} />
-          }
-        />
         <TypeButtons handleActiveTab={props.handleActiveTab} />
+        {props.activeTab != 'graph' && (
+          <Button
+            title='Φίλτρα'
+            buttonStyle={{ borderRadius: 25, backgroundColor: '#1b2254', height: 50 }}
+            onPress={handleOpenFilters}
+            icon={
+              <Icon name='filter-variant' size={25} color='#d2d6ef' style={{ marginRight: 10 }} />
+            }
+          />
+        )}
         <TextContainer selectedType={selectedType} openFilters={openFilters} />
       </View>
       <Modal

@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   buttonsView: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginTop: 20
+    marginBottom: 20
   },
   typeButtonsActive: {
     backgroundColor: '#1b2254',

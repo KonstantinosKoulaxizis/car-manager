@@ -43,12 +43,11 @@ export default function TablesView(props) {
 
   return (
     <View style={props.openModal ? styles.container : styles.containerModal}>
-      <Divider style={{marginBottom: 5}}/>
-      {props.tablesData && props.tablesData.length > 0 && (
+      {/* {props.tablesData && props.tablesData.length > 0 && (
         <Text style={styles.textTitle}>Αποτελέσματα Aναζήτησης</Text>
-      )}
+      )} */}
       {props.tablesData && props.tablesData.length > 0 ? (
-        <View style={{marginBottom:45}}>
+        <View style={{marginBottom:5}}>
           <Divider style={{ marginBottom: 15, marginTop: 5 }} />
           <View
             style={{

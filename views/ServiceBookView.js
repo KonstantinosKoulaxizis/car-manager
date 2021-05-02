@@ -5,7 +5,9 @@ import MainFilter from '../components/expenses/MainFilter'
 import TablesView from '../components/expenses/TablesView'
 import GraphsView from '../components/expenses/GraphsView'
 
-export default function MockService(props) {
+import TypeButtons from '../components/serviceBook/TypeButtons'
+
+export default function ServiceBookView(props) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState('')
@@ -68,7 +70,13 @@ export default function MockService(props) {
 
   return (
     <View style={styles.container}>
-      <MainFilter
+      <TypeButtons
+        handleData={handleData}
+        handleActiveTab={handleActiveTab}
+        handleOpenModal={handleOpenModal}
+        activeTab={activeTab}
+      />
+      {/* <MainFilter
         handleData={handleData}
         handleActiveTab={handleActiveTab}
         handleOpenModal={handleOpenModal}
@@ -78,7 +86,7 @@ export default function MockService(props) {
       {activeTab === 'table' && (
         <TablesView data={data} openModal={openModal} tablesData={tablesData} total={total} />
       )}
-      {activeTab === 'graph' && <GraphsView data={tablesData} openModal={openModal} />}
+      {activeTab === 'graph' && <GraphsView data={tablesData} openModal={openModal} />} */}
     </View>
   )
 }
@@ -87,6 +95,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignContent: 'flex-start'
+    alignContent: 'flex-start',
+    marginTop: 40
   }
 })

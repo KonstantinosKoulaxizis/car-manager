@@ -22,14 +22,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignContent: 'flex-start',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginTop: -320
   },
   containerModal: {
     flex: 1,
     justifyContent: 'flex-start',
     alignContent: 'flex-start',
     alignSelf: 'center',
-    marginTop: -230
+    marginTop: -320
   },
   textTitle: {
     fontSize: 20,

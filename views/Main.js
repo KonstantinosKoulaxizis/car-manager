@@ -5,6 +5,7 @@ import MockGraphs from './MockGraphs'
 import MockService from './MockService'
 
 import ExpensesView from './ExpensesView'
+import ServiceBookView from './ServiceBookView'
 
 const Main = (props) => {
   const OverViewRoute = () => (
@@ -15,7 +16,7 @@ const Main = (props) => {
     const ExpensesRoute = () => <ExpensesView />
 
 
-  const ServiceRoute = () => <MockService />
+  const ServiceBookRoute = () => <ServiceBookView />
 
   const SettingsRoute = () => <Text>Settings</Text>
 
@@ -30,7 +31,7 @@ const Main = (props) => {
   const renderScene = BottomNavigation.SceneMap({
     overview: OverViewRoute,
     expenses: ExpensesRoute,
-    service: ServiceRoute,
+    service: ServiceBookRoute,
     settings: SettingsRoute
   })
 

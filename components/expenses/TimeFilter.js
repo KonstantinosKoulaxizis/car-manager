@@ -2,7 +2,7 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { StyleSheet, Text, View } from 'react-native'
-import { Button, Divider } from 'react-native-elements'
+import { Button } from 'react-native-elements'
 
 export default function TimeFilter(props) {
   return (
@@ -49,8 +49,6 @@ export default function TimeFilter(props) {
         }}
         icon={<Icon name='close-circle' size={25} color='#fff' style={{ marginRight: 10 }} />}
       />
-      <Text> </Text>
-      <Divider style={{ marginTop: 10 }} />
     </View>
   )
 }
