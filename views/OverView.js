@@ -44,7 +44,7 @@ export default function OverView(props) {
   }
 
   const handleProModal = async ()=> {
-    await AsyncStorage.removeItem('car_events')
+    console.log('MODAL')
   }
 
   useEffect(() => {
@@ -159,6 +159,6 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: '#1b2254'
+    backgroundColor: '#424a7f'
   }
 })
