@@ -11,7 +11,7 @@ export default function MockStatsTable(props) {
   }
   return (
     <View style={styles.container}>
-      <View style={{ height: 370 }}>
+      <View>
         <Divider style={{ marginBottom: 15, marginTop: 5 }} />
         <View
           style={{

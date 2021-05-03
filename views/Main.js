@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { BottomNavigation, Text } from 'react-native-paper'
-import OverView from './OverView'
+import React, { useState, useEffect } from 'react'
+import { BottomNavigation } from 'react-native-paper'
+import { BackHandler, Alert } from 'react-native'
 
+import OverView from './OverView'
 import ExpensesView from './ExpensesView'
 import ServiceBookView from './ServiceBookView'
 import SettingsView from './SettingsView'
@@ -32,6 +33,15 @@ const Main = props => {
     settings: SettingsRoute
   })
 
+  useEffect(() => {
+   const backAction = () => {
+     return true
+   }  
+     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+    return () => backHandler.remove()
+  }, [])
+  
   return (
     <BottomNavigation
       navigationState={{ index, routes }}

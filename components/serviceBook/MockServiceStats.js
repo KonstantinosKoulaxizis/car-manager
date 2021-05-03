@@ -115,7 +115,7 @@ export default function MockServiceStats() {
         />
       )}
       {activeTab === 'graph' && (
-        <ScrollView style={{ height: 380 }}>
+        <ScrollView style={{marginBottom: 250}}>
           <MockCostGraph title={'Service'} icon={'wrench'} data={MOCK_DATA_SERVICE} />
           <MockCostGraph title={'Ελαστικά'} icon={'car-traction-control'} data={MOCK_DATA_TIRES} />
         </ScrollView>
