@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import moment from 'moment'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -9,7 +10,7 @@ import { FAB } from 'react-native-paper'
 
 import EventsList from '../components/EventsList'
 import AddEventModal from '../components/AddEventModal'
-import moment from 'moment'
+import ProModal from '../components/ProModal'
 
 export default function OverView(props) {
   const [userName, setUserName] = useState('')
@@ -17,6 +18,11 @@ export default function OverView(props) {
   const [cardata, setCarData] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
   const [loading, seLoading] = useState(true)
+  const [openProModal, setOpenProModal] = useState(false)
+
+  const handleProModal = () => {
+    setOpenProModal(!openProModal)
+  }
 
   const handleStoredData = async () => {
     const username = await AsyncStorage.getItem('usersName')
@@ -48,10 +54,6 @@ export default function OverView(props) {
 
   const handleModalStatus = () => {
     setModalVisible(!modalVisible)
-  }
-
-  const handleProModal = async () => {
-    console.log('MODAL')
   }
 
   useEffect(() => {
@@ -114,6 +116,10 @@ export default function OverView(props) {
               carInfo={carInfo}
               navigation={props.navigation}
             />
+          )}
+
+          {openProModal && (
+            <ProModal modalVisible={openProModal} handleModalStatus={handleProModal} />
           )}
         </>
       )}

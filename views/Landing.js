@@ -4,11 +4,17 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import { ImageBackground, StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import { Button } from 'react-native-elements'
+import ProModal from '../components/ProModal'
 
 const image = '../assets/app_cover.jpg'
 
 export default function App({ navigation }) {
   const [loading, seLoading] = useState(true)
+  const [openProModal, setOpenProModal] = useState(false)
+
+  const handleProModal = () => {
+    setOpenProModal(!openProModal)
+  }
 
   const handleExistingUser = async () => {
     const username = await AsyncStorage.getItem('usersName')
@@ -18,7 +24,8 @@ export default function App({ navigation }) {
     if (username && username.length && username.length > 0 && !carInfo) {
       navigation.navigate('free_account')
     } else if (username && username.length && username.length > 0 && carInfo) {
-      navigation.navigate('main')
+      // navigation.navigate('main')
+      seLoading(false)
     } else {
       seLoading(false)
     }
@@ -48,10 +55,12 @@ export default function App({ navigation }) {
               buttonStyle={styles.registerButton}
               containerStyle={{ marginTop: 30, borderRadius: 25 }}
               icon={<Icon name='star' size={25} color='#edc919' style={{ marginRight: 10 }} />}
+              onPress={handleProModal}
             />
           </View>
         </ImageBackground>
       )}
+      {openProModal && <ProModal modalVisible={openProModal} handleModalStatus={handleProModal} />}
     </View>
   )
 }

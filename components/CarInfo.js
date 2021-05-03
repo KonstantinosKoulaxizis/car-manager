@@ -138,7 +138,7 @@ export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand
         onDismiss={onDismissSnackBar}
         theme={{ colors: { accent: '#bf1e2d' } }}
         action={{
-          label: 'close',
+          label: 'Κλεισιμο',
           onPress: () => {
             onDismissSnackBar
           }

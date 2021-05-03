@@ -253,7 +253,7 @@ export default function ProfileSettingsView(props) {
           onDismiss={onDismissSnackBar}
           theme={{ colors: { accent: '#bf1e2d' } }}
           action={{
-            label: 'close',
+            label: 'Κλεισιμο',
             onPress: () => {
               onDismissSnackBar
             }

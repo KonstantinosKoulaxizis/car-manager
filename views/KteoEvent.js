@@ -111,7 +111,7 @@ export default function KteoEvent(props) {
         onDismiss={onDismissSnackBar}
         theme={{ colors: { accent: '#bf1e2d' } }}
         action={{
-          label: 'close',
+          label: 'Κλεισιμο',
           onPress: () => {
             onDismissSnackBar
           }

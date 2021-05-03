@@ -65,7 +65,7 @@ export default function RegistrationModal({ navigation }) {
         onDismiss={onDismissSnackBar}
         theme={{ colors: { accent: '#bf1e2d' } }}
         action={{
-          label: 'close',
+          label: 'Κλεισιμο',
           onPress: () => {
             onDismissSnackBar
           }
