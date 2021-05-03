@@ -24,9 +24,9 @@ export default function ExpensesTimeGraoh(props) {
     >
       <View style={{ marginTop: 20 }}>
         <Text style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 10, alignSelf: 'center' }}>
-          Έξοδα / Χρόνο
+          Έξοδα <Text style={{ fontSize: 15, color: '#7f7a7a' }}>(€ / xρόνο)</Text>
         </Text>
-        <Text style={{ fontSize: 13, color: '#bf1e2d', alignSelf: 'center' }}>
+        <Text style={{ fontSize: 13, color: '#bf1e2d', alignSelf: 'center', fontWeight: 'bold' }}>
           * Διαθέσιμο στη Pro έκδοση
         </Text>
       </View>

@@ -31,9 +31,9 @@ export default function ConsumptionGraph(props) {
     >
       <View style={{ marginTop: 20 }}>
         <Text style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 10, alignSelf: 'center' }}>
-          Κατανάλωση / Χρόνο
+          Κατανάλωση <Text style={{ fontSize: 15, color: '#7f7a7a' }}>(lt / 100 km)</Text>
         </Text>
-        <Text style={{ fontSize: 13, color: '#bf1e2d', alignSelf: 'center' }}>
+        <Text style={{ fontSize: 13, color: '#bf1e2d', alignSelf: 'center', fontWeight: 'bold' }}>
           * Διαθέσιμο στη Pro έκδοση
         </Text>
       </View>

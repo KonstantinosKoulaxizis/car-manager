@@ -1,20 +1,16 @@
 import React, { useState } from 'react'
 import { BottomNavigation, Text } from 'react-native-paper'
 import OverView from './OverView'
-import MockGraphs from './MockGraphs'
-import MockService from './MockService'
 
 import ExpensesView from './ExpensesView'
 import ServiceBookView from './ServiceBookView'
 
-const Main = (props) => {
+const Main = props => {
   const OverViewRoute = () => (
     <OverView navigation={props.navigation} handleRefresh={props.handleRefresh} />
   )
 
-  // const ExpensesRoute = () => <MockGraphs />
-    const ExpensesRoute = () => <ExpensesView />
-
+  const ExpensesRoute = () => <ExpensesView />
 
   const ServiceBookRoute = () => <ServiceBookView />
 

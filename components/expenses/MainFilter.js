@@ -33,13 +33,13 @@ export default function MainFilter(props) {
     setOpenModal(!openModal)
   }
 
-  const handleFilterChange = selected => {
-    setSelectedType(selected)
-    handleCarData(selected)
-    handleModalStatus()
-    // TODO Remove in pro
-    handleOpenFilters()
-  }
+  // const handleFilterChange = selected => {
+  //   setSelectedType(selected)
+  //   handleCarData(selected)
+  //   handleModalStatus()
+  //   // TODO Remove in pro
+  //   handleOpenFilters()
+  // }
 
   const handleCarData = async selected => {
     const carEventsRaw = await AsyncStorage.getItem('car_events')
@@ -51,14 +51,13 @@ export default function MainFilter(props) {
     } else {
       props.handleData(carEvents)
     }
+    props.handleLoading(false)
   }
 
   useEffect(() => {
     setSelectedType(OPTIONS[0])
     handleCarData(OPTIONS[0])
   }, [])
-
-  console.log(props.activeTab)
 
   return (
     <View style={styles.container}>
@@ -125,7 +124,7 @@ export default function MainFilter(props) {
             <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>
               Επέλεξε φίλτρο
             </Text>
-            <Text style={{ fontSize: 13, marginRight: 15, color: '#bf1e2d' }}>
+            <Text style={{ fontSize: 13, marginRight: 15, color: '#bf1e2d', fontWeight: 'bold' }}>
               * Διαθέσιμο στη Pro έκδοση
             </Text>
             {OPTIONS.map((i, index) => (

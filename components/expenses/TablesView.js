@@ -1,10 +1,12 @@
 import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { StyleSheet, View, Text, ScrollView } from 'react-native'
+import { StyleSheet, View, Text, ScrollView, Dimensions } from 'react-native'
 import { Divider } from 'react-native-elements'
 
 export default function TablesView(props) {
+  const windowHeight = Dimensions.get('window').height
+
   const isOdd = num => {
     return num % 2
   }
@@ -47,7 +49,7 @@ export default function TablesView(props) {
         <Text style={styles.textTitle}>Αποτελέσματα Aναζήτησης</Text>
       )} */}
       {props.tablesData && props.tablesData.length > 0 ? (
-        <View style={{marginBottom:5}}>
+        <View style={windowHeight > 740 ? { marginBottom: 5 } : { marginBottom: 5, marginTop: 55 }}>
           <Divider style={{ marginBottom: 15, marginTop: 5 }} />
           <View
             style={{
@@ -129,7 +131,7 @@ export default function TablesView(props) {
               >
                 Κατανάλωση
               </Text>
-              <Text style={{ fontSize: 13, marginRight: 15, color: '#bf1e2d' }}>
+              <Text style={{ fontSize: 13, marginRight: 15, color: '#bf1e2d', fontWeight: 'bold' }}>
                 * Διαθέσιμο στη Pro έκδοση
               </Text>
             </View>
@@ -155,7 +157,7 @@ export default function TablesView(props) {
               >
                 Εργασίες
               </Text>
-              <Text style={{ fontSize: 13, marginRight: 15, color: '#bf1e2d' }}>
+              <Text style={{ fontSize: 13, marginRight: 15, color: '#bf1e2d', fontWeight: 'bold' }}>
                 * Διαθέσιμο στη Pro έκδοση
               </Text>
             </View>
@@ -214,7 +216,7 @@ export default function TablesView(props) {
           </ScrollView>
         </View>
       ) : (
-        <View style={{ justifyContent: 'center', padding: 30, alignSelf: 'center' }}>
+        <View style={{ justifyContent: 'center', padding: 30, alignSelf: 'center', marginTop: 30 }}>
           <Text style={{ fontWeight: 'bold', fontSize: 18, color: '#bf1e2d' }}>
             * Δυστυχώς δεν υπάρχουν διαθέσιμα δεδομένα
           </Text>

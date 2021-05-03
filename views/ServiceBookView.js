@@ -1,92 +1,61 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
-
-import MainFilter from '../components/expenses/MainFilter'
-import TablesView from '../components/expenses/TablesView'
-import GraphsView from '../components/expenses/GraphsView'
+import { StyleSheet, View, ActivityIndicator } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import moment from 'moment'
 
 import TypeButtons from '../components/serviceBook/TypeButtons'
+import SericeBookList from '../components/serviceBook/SericeBookList'
 
-export default function ServiceBookView(props) {
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(false)
+export default function ServiceBookView() {
   const [activeTab, setActiveTab] = useState('')
-  const [openModal, setOpenModal] = useState(false)
-  const [tablesData, setTablesData] = useState([])
-  const [total, setTotal] = useState({})
+  const [serviceTablesData, setServiceTablesData] = useState([])
+  const [loading, seLoading] = useState(true)
 
-  const handleTablesData = () => {
-    const formatedObj = {}
-    const totalObject = {
-      cost: 0,
-      count: 0
-    }
+  const handleTablesData = async () => {
+    const carEventsRaw = await AsyncStorage.getItem('car_events')
+    const servicesArr = []
 
-    data.forEach(i => {
-      if (formatedObj[i.type]) {
-        formatedObj[i.type].count = Number(formatedObj[i.type].count) + 1
-        formatedObj[i.type].cost = Number(formatedObj[i.type].cost) + Number(i.cost)
-      } else {
-        formatedObj[i.type] = {
-          count: 1,
-          cost: i.cost,
-          type: i.type
+    if (carEventsRaw && carEventsRaw.length) {
+      const carEvents = JSON.parse(carEventsRaw)
+
+      carEvents.forEach(i => {
+        if ((i.type && i.type == 'service') || i.type == 'tires') {
+          servicesArr.push(i)
         }
-      }
-
-      totalObject.cost = Number(totalObject.cost) + Number(i.cost)
-      totalObject.count = Number(totalObject.count) + 1
-    })
-
-    const formatedArray = Object.values(formatedObj)
-    if (formatedArray) {
-      setTablesData(formatedArray)
-      setTotal(totalObject)
+      })
+      const servicesArrFormated = servicesArr.sort(
+        (a, b) => new moment(b.date).format('YYYYMMDD') - new moment(a.date).format('YYYYMMDD')
+      )
+      setServiceTablesData(servicesArrFormated)
     }
-  }
-  const handleData = d => {
-    setData(d)
-  }
-
-  const handleLoading = l => {
-    setLoading(l)
+    seLoading(false)
   }
 
   const handleActiveTab = type => {
     setActiveTab(type)
   }
 
-  const handleOpenModal = type => {
-    setOpenModal(type)
-  }
-
   useEffect(() => {
-    if (data && data.length > 0) {
-      handleTablesData()
-    } else {
-      setTablesData([])
-    }
-  }, [data])
+    handleTablesData()
+  }, [])
 
   return (
     <View style={styles.container}>
-      <TypeButtons
-        handleData={handleData}
-        handleActiveTab={handleActiveTab}
-        handleOpenModal={handleOpenModal}
-        activeTab={activeTab}
-      />
-      {/* <MainFilter
-        handleData={handleData}
-        handleActiveTab={handleActiveTab}
-        handleOpenModal={handleOpenModal}
-        activeTab={activeTab}
-      />
+      {loading ? (
+        <View style={{ marginTop: 300 }}>
+          <ActivityIndicator size='large' color='#3c4689' />
+        </View>
+      ) : (
+        <>
+          <TypeButtons handleActiveTab={handleActiveTab} activeTab={activeTab} />
 
-      {activeTab === 'table' && (
-        <TablesView data={data} openModal={openModal} tablesData={tablesData} total={total} />
+          {activeTab === 'book' && (
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <SericeBookList data={serviceTablesData} />
+            </View>
+          )}
+        </>
       )}
-      {activeTab === 'graph' && <GraphsView data={tablesData} openModal={openModal} />} */}
     </View>
   )
 }
@@ -96,6 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignContent: 'flex-start',
-    marginTop: 40
+    marginTop: 40,
+    marginBottom: 80
   }
 })

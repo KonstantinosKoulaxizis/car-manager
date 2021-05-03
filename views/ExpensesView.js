@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, ActivityIndicator } from 'react-native'
 
 import MainFilter from '../components/expenses/MainFilter'
 import TablesView from '../components/expenses/TablesView'
@@ -7,7 +7,7 @@ import GraphsView from '../components/expenses/GraphsView'
 
 export default function MockService(props) {
   const [data, setData] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const [tablesData, setTablesData] = useState([])
@@ -72,13 +72,21 @@ export default function MockService(props) {
         handleData={handleData}
         handleActiveTab={handleActiveTab}
         handleOpenModal={handleOpenModal}
+        handleLoading={handleLoading}
         activeTab={activeTab}
       />
-
-      {activeTab === 'table' && (
-        <TablesView data={data} openModal={openModal} tablesData={tablesData} total={total} />
+      {loading ? (
+        <View style={{ marginTop: 300 }}>
+          <ActivityIndicator size='large' color='#3c4689' />
+        </View>
+      ) : (
+        <>
+          {activeTab === 'table' && (
+            <TablesView data={data} openModal={openModal} tablesData={tablesData} total={total} />
+          )}
+          {activeTab === 'graph' && <GraphsView data={tablesData} openModal={openModal} />}
+        </>
       )}
-      {activeTab === 'graph' && <GraphsView data={tablesData} openModal={openModal} />}
     </View>
   )
 }
