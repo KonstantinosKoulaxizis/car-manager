@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import { ImageBackground, StyleSheet, Text, View, ActivityIndicator } from 'react-native'
+import { ImageBackground, StyleSheet, Text, View, ActivityIndicator, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import ProModal from '../components/ProModal'
 
 const image = '../assets/app_cover.jpg'
+const LOGO = '../assets/logo_image.png'
 
 export default function App({ navigation }) {
   const [loading, seLoading] = useState(true)
@@ -24,7 +25,8 @@ export default function App({ navigation }) {
     if (username && username.length && username.length > 0 && !carInfo) {
       navigation.navigate('free_account')
     } else if (username && username.length && username.length > 0 && carInfo) {
-      navigation.navigate('main')
+      // navigation.navigate('main')
+      seLoading(false)
     } else {
       seLoading(false)
     }
@@ -41,7 +43,19 @@ export default function App({ navigation }) {
         </View>
       ) : (
         <ImageBackground source={require(image)} style={styles.image}>
-          <Text style={styles.text}>Kalos ir8ate sto NAME_OF_THE_APP</Text>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#f0f0f080',
+              paddingTop: 30,
+              borderRadius: 15,
+              marginLeft: 20,
+              marginRight: 20
+            }}
+          >
+            <Image style={{ width: 350, height: 150 }} source={require(LOGO)} />
+          </View>
           <View style={styles.buttonsGrid}>
             <Button
               title='Δημιουργία Λογαριασμού'
@@ -89,6 +103,6 @@ const styles = StyleSheet.create({
     width: 240,
     height: 60,
     borderRadius: 25,
-    backgroundColor: '#1b2254'
+    backgroundColor: '#9b2630'
   }
 })
