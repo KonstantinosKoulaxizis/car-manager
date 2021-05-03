@@ -11,32 +11,31 @@ export default function TimeFilter(props) {
         <Button
           title='Μήνας'
           buttonStyle={styles.typeButtonsLeft}
-          titleStyle={{ fontSize: 14, color: '#1b2254' }}
+          titleStyle={{ fontSize: 14, color: '#1b2254', fontWeight: 'bold' }}
           disabled
         />
         <Button
           title='Χρόνος'
           buttonStyle={styles.typeButtons}
-          titleStyle={{ fontSize: 14, color: '#1b2254' }}
+          titleStyle={{ fontSize: 14, color: '#1b2254', fontWeight: 'bold' }}
           disabled
         />
         <Button
           title='Συνολικά'
           buttonStyle={styles.typeButtonsRight}
-          titleStyle={{ fontSize: 14, color: '#1b2254' }}
+          titleStyle={{ fontSize: 14, color: '#1b2254', fontWeight: 'bold' }}
           disabled
         />
       </View>
       <Button
         title='Συγκεκριμένες ημερομηνίες'
         buttonStyle={styles.typeButtonCustom}
-        titleStyle={{ fontSize: 14 }}
+        titleStyle={{ fontSize: 14, color: '#1b2254', fontWeight: 'bold' }}
         disabled
       />
 
-      <Text style={{ padding: 5, color: '#c44e4e', padding: 10}}>
-        * Όλες οι παραπάνω επιλογές για φιλτράρισμα είναι διαθέσιμες στη Pro
-        έκδοση.
+      <Text style={{ padding: 5, color: '#c44e4e', padding: 10 }}>
+        * Όλες οι παραπάνω επιλογές για φιλτράρισμα είναι διαθέσιμες στη Pro έκδοση.
       </Text>
       <Button
         title='Κλείσιμο'

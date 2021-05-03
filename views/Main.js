@@ -4,6 +4,7 @@ import OverView from './OverView'
 
 import ExpensesView from './ExpensesView'
 import ServiceBookView from './ServiceBookView'
+import SettingsView from './SettingsView'
 
 const Main = props => {
   const OverViewRoute = () => (
@@ -14,7 +15,7 @@ const Main = props => {
 
   const ServiceBookRoute = () => <ServiceBookView />
 
-  const SettingsRoute = () => <Text>Settings</Text>
+  const SettingsRoute = () => <SettingsView navigation={props.navigation} />
 
   const [index, setIndex] = useState(0)
   const [routes] = useState([

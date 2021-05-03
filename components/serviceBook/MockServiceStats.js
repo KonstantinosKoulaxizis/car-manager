@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { StyleSheet, View, Text, ScrollView, Dimensions } from 'react-native'
+import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import { Button, Divider } from 'react-native-elements'
 
 import MockStatsTable from './MockStatsTable'
@@ -48,19 +48,9 @@ const MOCK_DATA_TIRES = [
     color: '#ffa600'
   }
 ]
-export default function MockServiceStats(props) {
-  const windowHeight = Dimensions.get('window').height
-  console.log(
-    '🚀 ~ file: MockServiceStats.js ~ line 53 ~ MockServiceStats ~ windowHeight',
-    windowHeight
-  )
-
+export default function MockServiceStats() {
   const [activeTab, setActiveTab] = useState('table')
-  const [openFilters, setOpenFilters] = useState(true)
 
-  const handleOpenFilters = () => {
-    setOpenFilters(!openFilters)
-  }
 
   const handleActiveTab = type => {
     setActiveTab(type)
@@ -80,56 +70,7 @@ export default function MockServiceStats(props) {
       >
         * Διαθέσιμο στη Pro έκδοση. Τα δεδομένα προορίζονται μόνο για προεπισκόπηση της λειτουργίας
       </Text>
-      {openFilters && (
-        <>
-          <Button
-            disabled
-            title='Φίλτρα'
-            buttonStyle={{
-              backgroundColor: '#f0f0f0',
-              borderWidth: 5,
-              borderColor: '#858585',
-              borderRadius: 25
-            }}
-            disabledTitleStyle={{ color: 'grey' }}
-            icon={<Icon name='filter-variant' size={25} color='grey' style={{ marginRight: 10 }} />}
-          />
-          <View style={styles.textContainer}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: -10, marginBottom: 10 }}>
-              Χωρίς φίλτρο
-            </Text>
-            <Text style={props.openFilters ? { height: 0 } : styles.textStyle}>
-              Από: 01-01-2021
-            </Text>
-            <Text style={props.openFilters ? { height: 0 } : styles.textStyle}>
-              Έως: 31-01-2021
-            </Text>
-          </View>
-        </>
-      )}
       <Divider style={{ marginTop: 10 }} />
-      {windowHeight < 750 && (
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: openFilters ? 20 : 0
-          }}
-        >
-          <Button
-            buttonStyle={{ backgroundColor: '#1b2254', width: 35, height: 35, borderRadius: 25 }}
-            titleStyle={{ fontSize: 14, color: '#1b2254' }}
-            onPress={handleOpenFilters}
-            icon={
-              <Icon
-                name={openFilters ? 'arrow-up-thick' : 'arrow-down-thick'}
-                size={20}
-                color='#f0f0f0'
-              />
-            }
-          />
-        </View>
-      )}
       <View style={styles.buttonsView}>
         <Button
           title='Πίνακας'
@@ -171,7 +112,6 @@ export default function MockServiceStats(props) {
         <MockStatsTable
           MOCK_DATA_TIRES={MOCK_DATA_TIRES}
           MOCK_DATA_SERVICE={MOCK_DATA_SERVICE}
-          windowHeigh={windowHeight}
         />
       )}
       {activeTab === 'graph' && (

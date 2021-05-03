@@ -12,7 +12,7 @@ import KteoEvent from '../views/KteoEvent'
 import TireEvent from '../views/TireEvent'
 import InsuranceEvent from '../views/InsuranceEvent'
 import FumesEvent from '../views/FumesEvent'
-
+import ProfileSettingsView from '../views/ProfileSettingsView'
 function App() {
   const [refresh, setRefresh] = React.useState(false)
 
@@ -60,6 +60,10 @@ function App() {
     return <FumesEvent navigation={navigation} handleRefresh={handleRefresh} />
   }
 
+  function GoToProfileSettings({ navigation }) {
+    return <ProfileSettingsView navigation={navigation} handleRefresh={handleRefresh} />
+  }
+
   const Stack = createStackNavigator()
 
   return (
@@ -97,6 +101,11 @@ function App() {
           options={{ title: 'Κάρτα Καυσαερίων' }}
           name='fumes_event'
           component={GoToFumesEvent}
+        />
+        <Stack.Screen
+          options={{ title: 'Ρυθμίσεις Χρήστη' }}
+          name='profile_settings'
+          component={GoToProfileSettings}
         />
       </Stack.Navigator>
     </NavigationContainer>
