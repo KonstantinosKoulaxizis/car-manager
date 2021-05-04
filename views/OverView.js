@@ -69,7 +69,7 @@ export default function OverView(props) {
       ) : (
         <>
           <View style={styles.carInfo}>
-            <Text style={styles.usernameStyle}>Hello {userName}</Text>
+            <Text style={styles.usernameStyle}>{userName}</Text>
             <View style={styles.roundContainer}>
               <View style={styles.brandAndLogo}>
                 <Avatar source={{ uri: carInfo.logo }} />

@@ -12,25 +12,25 @@ const MOCK_DATA_SERVICE = [
     cost: '90',
     count: '3',
     name: 'Αλλαγή λαδιών',
-    color: '#003f5c'
+    color: '#595555'
   },
   {
     cost: '10',
     count: '1',
     name: 'Αλλαγή του φίλτρου λαδιού',
-    color: '#444e86'
+    color: '#898989'
   },
   {
     cost: '30',
     count: '1',
     name: 'Προσθήκη αντιψυκτικού',
-    color: '#dd5182'
+    color: '#c6c6c6'
   },
   {
     cost: '30',
     count: '1',
     name: 'Εκκαθάριση συστήματος ψύξης',
-    color: '#ffa600'
+    color: '#e0e0e0'
   }
 ]
 
@@ -39,13 +39,13 @@ const MOCK_DATA_TIRES = [
     cost: '320',
     count: '1',
     name: 'Αντικατάσταση ελαστικών',
-    color: '#003f5c'
+    color: '#595555'
   },
   {
     cost: '30',
     count: '1',
     name: 'Ευθυγράμμιση τροχών',
-    color: '#ffa600'
+    color: '#e0e0e0'
   }
 ]
 export default function MockServiceStats() {

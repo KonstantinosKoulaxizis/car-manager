@@ -36,7 +36,7 @@ export default function MockStatsTable(props) {
               alignItems: 'center',
               width: 320,
               height: 40,
-              backgroundColor: '#1b2254'
+              backgroundColor: '#858585'
             }}
           >
             <Text
@@ -74,7 +74,7 @@ export default function MockStatsTable(props) {
               alignItems: 'center',
               width: 320,
               height: 40,
-              backgroundColor: '#424a7f'
+              backgroundColor: '#9e9e9e'
             }}
           >
             <View
@@ -89,14 +89,14 @@ export default function MockStatsTable(props) {
                 name={'wrench'}
                 size={22}
                 // color='#d2d6ef'
-                color='#d3d3d3'
+                color='#f0f0f0'
                 style={{ marginRight: 10 }}
               />
               <Text
                 style={{
                   fontSize: 18,
                   fontWeight: 'bold',
-                  color: '#d3d3d3'
+                  color: '#f0f0f0'
                 }}
               >
                 Service
@@ -112,7 +112,7 @@ export default function MockStatsTable(props) {
                 alignItems: 'center',
                 width: 320,
                 height: 40,
-                backgroundColor: isOdd(index) ? '#9ca3d3' : '#fafafa'
+                backgroundColor: isOdd(index) ? '#c6c6c6' : '#fafafa'
               }}
             >
               <View
@@ -158,7 +158,7 @@ export default function MockStatsTable(props) {
               alignItems: 'center',
               width: 320,
               height: 40,
-              backgroundColor: '#424a7f'
+              backgroundColor: '#9e9e9e'
             }}
           >
             <View
@@ -173,14 +173,14 @@ export default function MockStatsTable(props) {
                 name={'car-traction-control'}
                 size={22}
                 // color='#d2d6ef'
-                color='#d3d3d3'
+                color='#f0f0f0'
                 style={{ marginRight: 10 }}
               />
               <Text
                 style={{
                   fontSize: 18,
                   fontWeight: 'bold',
-                  color: '#d3d3d3'
+                  color: '#f0f0f0'
                 }}
               >
                 Ελαστικά
@@ -196,7 +196,7 @@ export default function MockStatsTable(props) {
                 alignItems: 'center',
                 width: 320,
                 height: 40,
-                backgroundColor: isOdd(index) ? '#9ca3d3' : '#fafafa'
+                backgroundColor: isOdd(index) ? '#c6c6c6' : '#fafafa'
               }}
             >
               <View

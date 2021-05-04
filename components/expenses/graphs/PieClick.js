@@ -37,7 +37,7 @@ const PieClick = props => {
               Κόστος: {props.selected.cost} €
             </Text>
             <Text style={{ ...styles.modalText, color: '#3c4743' }}>
-              Επισκέψεις: {props.selected.count} φορές
+              Επισκέψεις: {props.selected.count} {Number(props.selected.count) && Number(props.selected.count) == 1 ? 'φορά' : 'φορές'}
             </Text>
           </View>
         </View>
