@@ -67,6 +67,7 @@ const Main = props => {
         icon='clipboard-plus-outline'
         onPress={handleModalStatus}
         visible={!modalVisible}
+        color='#f0f0f0'
       />
       <BottomNavigation
         navigationState={{ index, routes }}
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     margin: 16,
     right: Dimensions.get('window').width / 2.6,
     bottom: 5,
-    backgroundColor: '#424a7f',
+    backgroundColor: '#6870a5',
     zIndex: 10
   }
 })
