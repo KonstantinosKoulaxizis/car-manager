@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import NumberFormat from 'react-number-format'
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 import { Button, Avatar } from 'react-native-elements'
-import { FAB } from 'react-native-paper'
 
 import EventsList from '../components/EventsList'
 import AddEventModal from '../components/AddEventModal'
@@ -103,12 +102,12 @@ export default function OverView(props) {
           <View style={styles.listStyle}>
             <EventsList data={cardata} handleRefresh={props.handleRefresh} />
           </View>
-          <FAB
+          {/* <FAB
             style={styles.fab}
             icon='clipboard-plus-outline'
             onPress={handleModalStatus}
             visible={!modalVisible}
-          />
+          /> */}
           {modalVisible && (
             <AddEventModal
               modalVisible={modalVisible}
@@ -174,12 +173,5 @@ const styles = StyleSheet.create({
     marginTop: 150,
     height: 'auto',
     marginBottom: 120
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-    backgroundColor: '#424a7f'
   }
 })

@@ -3,12 +3,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import NumberFormat from 'react-number-format'
 import { StyleSheet, View, ScrollView } from 'react-native'
-import { Button, Input } from 'react-native-elements'
+import { Avatar, Button, Input } from 'react-native-elements'
 import { Snackbar } from 'react-native-paper'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand }) {
+export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand, selectedModel }) {
   const [carModel, setCarModel] = useState('')
   const [carYear, setCarYear] = useState('')
   const [carCubics, setCarCubics] = useState('')
@@ -55,20 +55,27 @@ export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand
       setCarMeter(storedData.km)
     }
 
-    if (storedData && storedData.model) {
+    if ((!selectedModel || !selectedModel.length) && storedData && storedData.model) {
       setCarModel(storedData.model)
+    } else {
+      setCarModel(selectedModel)
     }
 
     if (storedData && storedData.year) {
       setCarYear(storedData.year)
     }
 
-    if (storedData && storedData.brand && storedData.logo) {
+    if ((!selectedBrand || !selectedBrand.name) && storedData && storedData.brand && storedData.logo) {
       const item = {
         name: storedData.brand,
         logo: storedData.logo
       }
       handleSelectedBrand(item)
+    } else {
+      handleSelectedBrand({
+        name: selectedBrand.name,
+        logo: selectedBrand.logo
+      })
     }
   }
 
@@ -79,11 +86,18 @@ export default function CarInfo({ navigation, selectedBrand, handleSelectedBrand
   return (
     <ScrollView>
       <Input
+        label='Κατασκευαστής'
+        leftIcon={<Avatar source={{ uri: selectedBrand.logo }} />}
+        value={selectedBrand.name}
+        disabled
+      />
+
+      <Input
         label='Μοντέλο'
         placeholder='π.χ. Golf'
         leftIcon={<Icon name='car-side' size={24} color='black' />}
-        onChangeText={value => setCarModel(value)}
         value={carModel}
+        disabled
       />
       <Input
         label='Χρονολογία'

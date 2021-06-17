@@ -26,6 +26,8 @@ export default function App({ navigation }) {
       navigation.navigate('free_account')
     } else if (username && username.length && username.length > 0 && carInfo) {
       navigation.navigate('main')
+      seLoading(false)
+
     } else {
       seLoading(false)
     }

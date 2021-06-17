@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { StyleSheet, Text, View, ImageBackground, FlatList } from 'react-native'
-import { ListItem, Avatar, SearchBar } from 'react-native-elements'
+import { StyleSheet, View, ImageBackground, FlatList } from 'react-native'
+import { ListItem, Avatar, SearchBar, Button } from 'react-native-elements'
 
 import CarsAndBrands from '../utils/CarsAndBrands'
 import CarInfo from '../components/CarInfo'
@@ -12,21 +13,41 @@ export default function AddCar({ navigation }) {
   const [searchValue, setSearchValue] = useState('')
   const [searchList, setSearchList] = useState('')
   const [selectedBrand, setSelectedBrand] = useState({})
+  const [carModel, setCarModel] = useState('')
 
   const keyExtractor = (item, index) => index.toString()
 
   const renderItem = ({ item }) => (
-    <ListItem bottomDivider onPress={() => handleSelectedBrand(item)}>
-      <Avatar source={{ uri: item.logo }} />
-      <ListItem.Content>
-        <ListItem.Title>{item.name}</ListItem.Title>
-      </ListItem.Content>
-      <ListItem.Chevron />
-    </ListItem>
+    <>
+      {item.logo && item.name ? (
+        <ListItem bottomDivider onPress={() => handleSelectedBrand(item)}>
+          <Avatar source={{ uri: item.logo }} />
+          <ListItem.Content>
+            <ListItem.Title>{item.name}</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      ) : (
+        <ListItem bottomDivider onPress={() => handleSelectedCarModel(item)}>
+          <ListItem.Content>
+            <ListItem.Title>{item}</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      )}
+    </>
   )
+
+  const handleSelectedCarModel = model => {
+    setCarModel(model)
+  }
 
   const handleSelectedBrand = item => {
     setSelectedBrand(item)
+  }
+
+  const handleRemoveSelectedBrand = ()=> {
+    setSelectedBrand({})
   }
 
   useEffect(() => {
@@ -49,24 +70,54 @@ export default function AddCar({ navigation }) {
     <View style={styles.container}>
       <ImageBackground source={require(image)} style={styles.image}>
         <View style={styles.textField}>
-          {selectedBrand && selectedBrand.name ? (
+          {selectedBrand && selectedBrand.name && carModel.length > 0 ? (
             <CarInfo
+              selectedModel={carModel}
               selectedBrand={selectedBrand}
               handleSelectedBrand={handleSelectedBrand}
               navigation={navigation}
             />
           ) : (
             <View>
-              <Text style={styles.textStyle}>Choose your car's brand</Text>
-              <SearchBar
-                lightTheme='true'
-                containerStyle={{ borderRadius: 25 }}
-                inputContainerStyle={{ borderRadius: 25 }}
-                placeholder='...'
-                onChangeText={value => setSearchValue(value)}
-                value={searchValue}
-              />
-              <FlatList keyExtractor={keyExtractor} data={searchList} renderItem={renderItem} />
+              {selectedBrand && selectedBrand.cars ? (
+                <>
+                  <ListItem bottomDivider style={styles.textStyle}>
+                    <Avatar source={{ uri: selectedBrand.logo }} />
+                    <ListItem.Content>
+                      <ListItem.Title>{selectedBrand.name}</ListItem.Title>
+                    </ListItem.Content>
+                    <Button
+                      buttonStyle={styles.closeButton}
+                      containerStyle={{
+                        borderRadius: 50,
+                        position: 'absolute',
+                        right: 15,
+                        top: 15
+                      }}
+                      onPress={handleRemoveSelectedBrand}
+                      icon={<Icon name='close-thick' size={12} color='#f0f0f0' />}
+                    />
+                  </ListItem>
+
+                  <FlatList
+                    keyExtractor={keyExtractor}
+                    data={selectedBrand.cars}
+                    renderItem={renderItem}
+                  />
+                </>
+              ) : (
+                <>
+                  <SearchBar
+                    lightTheme='true'
+                    containerStyle={{ borderRadius: 25, marginTop: 50 }}
+                    inputContainerStyle={{ borderRadius: 25 }}
+                    placeholder='...'
+                    onChangeText={value => setSearchValue(value)}
+                    value={searchValue}
+                  />
+                  <FlatList keyExtractor={keyExtractor} data={searchList} renderItem={renderItem} />
+                </>
+              )}
             </View>
           )}
         </View>
@@ -94,13 +145,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 26,
     fontWeight: '800',
-    marginBottom: 40
+    marginTop: 40
   },
   image: {
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   confirmationButton: {
     width: 140,
@@ -108,5 +159,10 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     alignSelf: 'center',
     marginBottom: 30
+  },
+  closeButton: {
+    width: 28,
+    height: 28,
+    backgroundColor: '#bf1e2d'
   }
 })
