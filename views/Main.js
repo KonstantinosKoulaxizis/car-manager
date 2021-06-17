@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     margin: 16,
     right: Dimensions.get('window').width / 2.6,
     bottom: 5,
-    backgroundColor: '#6870a5',
+    backgroundColor: '#273172',
     zIndex: 10
   }
 })
