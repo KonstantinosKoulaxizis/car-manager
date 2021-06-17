@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
+import NumberFormat from 'react-number-format'
 
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { CheckBox } from 'react-native-elements'
@@ -15,7 +16,12 @@ export default function SericeBookList(props) {
         # {props.data.length - index}
       </Text>
       <Text style={styles.titleText}>Ημερομηνία: {moment(item.date).format('DD-MM-YYYY')}</Text>
-      <Text style={{ ...styles.titleText, color: '#a3a3a3' }}>Χιλιόμετρα: {item.km}</Text>
+      <NumberFormat
+        value={item.km ? item.km : ''}
+        displayType={'text'}
+        thousandSeparator={true}
+        renderText={value => <Text style={styles.titleText}>Χιλιόμετρα: {value} km</Text>}
+      />
       <Text style={{ ...styles.titleText, color: '#a3a3a3', fontSize: 12 }}>
         Συνεργείο: <Text style={{ color: '#bf1e2d' }}> * Διαθέσιμο στη Pro έκδοση</Text>
       </Text>

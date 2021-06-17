@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   addServiceBtn: {
     width: 250,
     borderRadius: 25,
-    backgroundColor: '#666ea3'
+    backgroundColor: '#2f376d'
   },
   centeredView: {
     flex: 1,
