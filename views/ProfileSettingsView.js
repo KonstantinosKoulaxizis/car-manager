@@ -21,17 +21,28 @@ export default function ProfileSettingsView(props) {
   const [searchValue, setSearchValue] = useState('')
   const [searchList, setSearchList] = useState('')
   const [brandsModal, setBrandsModal] = useState(false)
+  const [carsModel, selectCarModel] = useState(false)
 
   const keyExtractor = (item, index) => index.toString()
 
   const renderItem = ({ item }) => (
-    <ListItem bottomDivider onPress={() => handleSelectedBrand(item)} style={{ width: 330 }}>
-      <Avatar source={{ uri: item.logo }} />
-      <ListItem.Content>
-        <ListItem.Title>{item.name}</ListItem.Title>
-      </ListItem.Content>
-      <ListItem.Chevron />
-    </ListItem>
+    <>
+      {carsModel ? (
+        <ListItem bottomDivider onPress={() => handleSetCarModel(item)} style={{ width: 330 }}>
+          <ListItem.Content>
+            <ListItem.Title>{item}</ListItem.Title>
+          </ListItem.Content>
+        </ListItem>
+      ) : (
+        <ListItem bottomDivider onPress={() => handleSelectedBrand(item)} style={{ width: 330 }}>
+          <Avatar source={{ uri: item.logo }} />
+          <ListItem.Content>
+            <ListItem.Title>{item.name}</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      )}
+    </>
   )
 
   const handleBrandsModal = () => {
@@ -42,7 +53,14 @@ export default function ProfileSettingsView(props) {
 
   const handleSelectedBrand = item => {
     setSelectedBrand(item)
+    selectCarModel(true)
+    // handleBrandsModal()
+  }
+
+  const handleSetCarModel = item => {
+    setCarModel(item)
     handleBrandsModal()
+    selectCarModel(false)
   }
 
   const onDismissSnackBar = () => setVisible(false)
@@ -169,7 +187,7 @@ export default function ProfileSettingsView(props) {
           leftIcon={<Icon name='car-side' size={24} color='black' />}
           onChangeText={value => setCarModel(value)}
           value={carModel}
-          disabled={!edit}
+          disabled
         />
         <Input
           label='Χρονολογία'
@@ -283,16 +301,25 @@ export default function ProfileSettingsView(props) {
                 onPress={handleBrandsModal}
                 icon={<Icon name='close-thick' size={12} color='#f0f0f0' />}
               />
-              <Text style={styles.textStyle}>Choose your car's brand</Text>
-              <SearchBar
-                lightTheme='true'
-                containerStyle={{ borderRadius: 25, width: 300 }}
-                inputContainerStyle={{ borderRadius: 25 }}
-                placeholder='...'
-                onChangeText={value => setSearchValue(value)}
-                value={searchValue}
-              />
-              <FlatList keyExtractor={keyExtractor} data={searchList} renderItem={renderItem} />
+              {carsModel ? (
+                <FlatList
+                  keyExtractor={keyExtractor}
+                  data={selectedBrand.cars}
+                  renderItem={renderItem}
+                />
+              ) : (
+                <>
+                  <SearchBar
+                    lightTheme='true'
+                    containerStyle={{ borderRadius: 25, width: 300, marginTop: 25 }}
+                    inputContainerStyle={{ borderRadius: 25 }}
+                    placeholder='...'
+                    onChangeText={value => setSearchValue(value)}
+                    value={searchValue}
+                  />
+                  <FlatList keyExtractor={keyExtractor} data={searchList} renderItem={renderItem} />
+                </>
+              )}
             </View>
           </View>
         </Modal>

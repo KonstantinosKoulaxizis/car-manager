@@ -145,23 +145,38 @@ export default function CostPie(props) {
           />
         </View>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ justifyContent: 'center', alignItems: 'flex-start', marginBottom: 20 }}>
-            {LABELS.map(label => (
-              <View key={label.color} style={{ flexDirection: 'row' }}>
-                <Icon
-                  name='brightness-1'
-                  size={20}
-                  color={label.color}
-                  style={{ marginRight: 10 }}
-                />
-                <Icon name={label.icon} size={20} color='#3c4743' style={{ marginRight: 10 }} />
-                <Text style={{ fontWeight: 'bold', color: '#3c4743' }}>{label.name}</Text>
-              </View>
-            ))}
-          </View>
+          {props.data && props.data.length > 0 ? (
+            <View style={{ justifyContent: 'center', alignItems: 'flex-start', marginBottom: 20 }}>
+              {LABELS.map(label => (
+                <View key={label.color} style={{ flexDirection: 'row' }}>
+                  <Icon
+                    name='brightness-1'
+                    size={20}
+                    color={label.color}
+                    style={{ marginRight: 10 }}
+                  />
+                  <Icon name={label.icon} size={20} color='#3c4743' style={{ marginRight: 10 }} />
+                  <Text style={{ fontWeight: 'bold', color: '#3c4743' }}>{label.name}</Text>
+                </View>
+              ))}
+            </View>
+          ) : (
+            <View
+              style={{ justifyContent: 'center', padding: 30, alignSelf: 'center', marginTop: 30 }}
+            >
+              <Text style={{ fontWeight: 'bold', fontSize: 18, color: '#bf1e2d' }}>
+                * Δυστυχώς δεν υπάρχουν διαθέσιμα δεδομένα
+              </Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 15, color: '#858585', marginTop: 15 }}>
+                Δοκιμάστε να αλλάξετε τα φίλτρα σας η κάντε τη πρώτη σας καταχώριση.
+              </Text>
+            </View>
+          )}
         </View>
       </View>
-      <PieChart style={{ height: 200, width: 200, alignSelf: 'center' }} data={pieData} />
+      {props.data && props.data.length > 0 && (
+        <PieChart style={{ height: 200, width: 200, alignSelf: 'center' }} data={pieData} />
+      )}
       <Divider style={{ marginTop: 20 }} />
       {openModal && (
         <PieClick
