@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/auto_logo.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "io.test.car"
+      "package": "io.production.car"
     },
     "web": {
       "favicon": "./assets/favicon.png"
