@@ -4,9 +4,9 @@
     "slug": "auto-manager",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/auto.png",
+    "icon": "./assets/auto_logo.png",
     "splash": {
-      "image": "./assets/auto.png",
+      "image": "./assets/auto_logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/auto.png",
+        "foregroundImage": "./assets/auto_logo.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "io.test.car"
