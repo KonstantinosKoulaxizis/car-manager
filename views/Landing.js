@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import { ImageBackground, StyleSheet, Text, View, ActivityIndicator, Image } from 'react-native'
+import { StyleSheet, View, Image, Animated } from 'react-native'
 import { Button } from 'react-native-elements'
 import ProModal from '../components/ProModal'
 
-const image = '../assets/app_cover.jpg'
-const LOGO = '../assets/logo_image.png'
+const SPLASH = '../assets/splash_auto.png'
 
 export default function App({ navigation }) {
   const [loading, seLoading] = useState(true)
   const [openProModal, setOpenProModal] = useState(false)
+  const [newAccount, setNewAccount] = useState(false)
+  const fadeAnim = useRef(new Animated.Value(0)).current
 
   const handleProModal = () => {
     setOpenProModal(!openProModal)
@@ -26,37 +27,43 @@ export default function App({ navigation }) {
       navigation.navigate('free_account')
     } else if (username && username.length && username.length > 0 && carInfo) {
       navigation.navigate('main')
-      seLoading(false)
-
+      // seLoading(false)
     } else {
       seLoading(false)
+      setNewAccount(true)
     }
   }
 
   useEffect(() => {
     handleExistingUser()
   }, [])
+
+  React.useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1800,
+      useNativeDriver: true
+    }).start()
+  }, [fadeAnim])
+
   return (
     <View style={styles.container}>
-      {loading ? (
-        <View style={{ marginTop: 300 }}>
-          <ActivityIndicator size='large' color='#3c4689' />
+      {loading && (
+        <View style={{ marginTop: 300, alignItems: 'center', justifyContent: 'center' }}>
+          {/* <ActivityIndicator size='large' color='#3c4689' /> */}
+          {/* <Image style={{ width: 300, height: 300 }} source={require(SPLASH)} /> */}
         </View>
-      ) : (
-        <ImageBackground source={require(image)} style={styles.image}>
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#f0f0f080',
-              paddingTop: 30,
-              borderRadius: 15,
-              marginLeft: 20,
-              marginRight: 20
-            }}
-          >
-            <Image style={{ width: 350, height: 150 }} source={require(LOGO)} />
-          </View>
+      )}
+      {newAccount && (
+        <Animated.View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: 40,
+            opacity: fadeAnim
+          }}
+        >
+          <Image style={{ width: 300, height: 300 }} source={require(SPLASH)} />
           <View style={styles.buttonsGrid}>
             <Button
               title='Δημιουργία Λογαριασμού'
@@ -72,7 +79,7 @@ export default function App({ navigation }) {
               onPress={handleProModal}
             />
           </View>
-        </ImageBackground>
+        </Animated.View>
       )}
       {openProModal && <ProModal modalVisible={openProModal} handleModalStatus={handleProModal} />}
     </View>
@@ -82,7 +89,8 @@ export default function App({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: '#1b2254'
   },
   image: {
     flex: 1,

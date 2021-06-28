@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { StyleSheet, View, ImageBackground, FlatList } from 'react-native'
+import { StyleSheet, View, ImageBackground, FlatList, Dimensions } from 'react-native'
 import { ListItem, Avatar, SearchBar, Button } from 'react-native-elements'
 
 import CarsAndBrands from '../utils/CarsAndBrands'
@@ -10,6 +10,8 @@ import CarInfo from '../components/CarInfo'
 const image = '../assets/app_cover.jpg'
 
 export default function AddCar({ navigation }) {
+  const windowHeight = Dimensions.get('window').height
+
   const [searchValue, setSearchValue] = useState('')
   const [searchList, setSearchList] = useState('')
   const [selectedBrand, setSelectedBrand] = useState({})
@@ -103,6 +105,7 @@ export default function AddCar({ navigation }) {
                     keyExtractor={keyExtractor}
                     data={selectedBrand.cars}
                     renderItem={renderItem}
+                    style={{ height: windowHeight * 0.6 }}
                   />
                 </>
               ) : (
@@ -115,7 +118,12 @@ export default function AddCar({ navigation }) {
                     onChangeText={value => setSearchValue(value)}
                     value={searchValue}
                   />
-                  <FlatList keyExtractor={keyExtractor} data={searchList} renderItem={renderItem} />
+                  <FlatList
+                    keyExtractor={keyExtractor}
+                    data={searchList}
+                    renderItem={renderItem}
+                    style={{ height: windowHeight * 0.6 }}
+                  />
                 </>
               )}
             </View>

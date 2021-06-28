@@ -3,13 +3,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import NumberFormat from 'react-number-format'
 import { Snackbar } from 'react-native-paper'
-import { Modal, StyleSheet, View, ScrollView, Text, TouchableOpacity, FlatList } from 'react-native'
+import {
+  Modal,
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Dimensions
+} from 'react-native'
 import { Input, Button, Avatar, ListItem, SearchBar } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import CarsAndBrands from '../utils/CarsAndBrands'
 
 export default function ProfileSettingsView(props) {
+  const windowHeight = Dimensions.get('window').height
+
   const [carModel, setCarModel] = useState('')
   const [carYear, setCarYear] = useState('')
   const [carCubics, setCarCubics] = useState('')
@@ -302,11 +313,20 @@ export default function ProfileSettingsView(props) {
                 icon={<Icon name='close-thick' size={12} color='#f0f0f0' />}
               />
               {carsModel ? (
-                <FlatList
-                  keyExtractor={keyExtractor}
-                  data={selectedBrand.cars}
-                  renderItem={renderItem}
-                />
+                <>
+                  <View style={styles.brandAndLogoModal}>
+                    <Avatar source={{ uri: selectedBrand.logo }} />
+                    <Text style={{ marginLeft: 15, fontSize: 18, fontWeight: 'bold' }}>
+                      {selectedBrand.name}
+                    </Text>
+                  </View>
+                  <FlatList
+                    keyExtractor={keyExtractor}
+                    data={selectedBrand.cars}
+                    renderItem={renderItem}
+                    style={{ height: windowHeight * 0.75, marginTop: 30 }}
+                  />
+                </>
               ) : (
                 <>
                   <SearchBar
@@ -317,7 +337,12 @@ export default function ProfileSettingsView(props) {
                     onChangeText={value => setSearchValue(value)}
                     value={searchValue}
                   />
-                  <FlatList keyExtractor={keyExtractor} data={searchList} renderItem={renderItem} />
+                  <FlatList
+                    keyExtractor={keyExtractor}
+                    data={searchList}
+                    renderItem={renderItem}
+                    style={{ height: windowHeight * 0.75 }}
+                  />
                 </>
               )}
             </View>
@@ -383,5 +408,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5
+  },
+  brandAndLogoModal: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5
   }
 })

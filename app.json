@@ -2,13 +2,13 @@
   "expo": {
     "name": "auto manager",
     "slug": "auto-manager",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/auto_logo.png",
     "splash": {
-      "image": "./assets/auto_logo.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#1b2254"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
