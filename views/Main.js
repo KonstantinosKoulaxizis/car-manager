@@ -43,30 +43,19 @@ const Main = props => {
     setModalVisible(!modalVisible)
   }
 
-  const handleCloseAppAlert = () =>
-    Alert.alert(
-      'Auto Manager',
-      'Έξοδος από την εφαρμογή ;',
-      [
-        {
-          text: 'Ακύρωση',
-          onPress: () => null,
-          style: 'cancel'
-        },
-        { text: 'Ναι', onPress: () => BackHandler.exitApp() }
-      ],
-      { cancelable: false }
-    )
-
   useEffect(() => {
     const backAction = () => {
-      handleCloseAppAlert()
+      if (index === 0) {
+        BackHandler.exitApp()
+      } else {
+        setIndex(0)
+      }
       return true
     }
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
 
     return () => backHandler.remove()
-  }, [])
+  }, [index])
 
   return (
     <>
