@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BottomNavigation } from 'react-native-paper'
-import { BackHandler, StyleSheet, Dimensions } from 'react-native'
+import { BackHandler, StyleSheet, Dimensions, Alert } from 'react-native'
 import { FAB } from 'react-native-paper'
 
 import AddEventModal from '../components/AddEventModal'
@@ -43,8 +43,24 @@ const Main = props => {
     setModalVisible(!modalVisible)
   }
 
+  const handleCloseAppAlert = () =>
+    Alert.alert(
+      'Auto Manager',
+      'Έξοδος από την εφαρμογή ;',
+      [
+        {
+          text: 'Ακύρωση',
+          onPress: () => null,
+          style: 'cancel'
+        },
+        { text: 'Ναι', onPress: () => BackHandler.exitApp() }
+      ],
+      { cancelable: false }
+    )
+
   useEffect(() => {
     const backAction = () => {
+      handleCloseAppAlert()
       return true
     }
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
