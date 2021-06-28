@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
 import { StyleSheet, Text, View, Switch } from 'react-native'
+import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function Notifications(props) {
   const [isEnabled, setIsEnabled] = useState(false)
+  const [selectedType, setSelectedType] = useState('Χιλιόμετρα')
+
+  const handleTypeChange = type => {
+    setSelectedType(type)
+  }
+
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
 
   return (
@@ -26,9 +33,48 @@ export default function Notifications(props) {
         />
       </View>
       {isEnabled && (
-        <Text style={{ marginTop: 11, marginLeft: 10, color: '#bf1e2d', fontWeight: 'bold' }}>
-          * Διαθέσιμο μόνο στο Pro
-        </Text>
+        <>
+          <View style={styles.buttonTabs}>
+            <Button
+              title='Χιλιόμετρα'
+              titleStyle={selectedType !== 'Χιλιόμετρα' ? { color: '#1b2254' } : {}}
+              buttonStyle={
+                selectedType === 'Χιλιόμετρα' ? styles.activeButton : styles.notActiveButton
+              }
+              containerStyle={styles.tabButton}
+              icon={
+                <Icon
+                  name='speedometer'
+                  size={25}
+                  color={selectedType === 'Χιλιόμετρα' ? '#d2d6ef' : '#1b2254'}
+                  style={{ marginRight: 10 }}
+                />
+              }
+              onPress={() => handleTypeChange('Χιλιόμετρα')}
+            />
+            <Button
+              title='Ημερομηνία'
+              titleStyle={selectedType !== 'Ημερομηνία' ? { color: '#1b2254' } : {}}
+              buttonStyle={
+                selectedType === 'Ημερομηνία' ? styles.activeButton : styles.notActiveButton
+              }
+              containerStyle={styles.tabButton}
+              icon={
+                <Icon
+                  name='calendar-clock'
+                  size={25}
+                  color={selectedType === 'Ημερομηνία' ? '#d2d6ef' : '#1b2254'}
+                  style={{ marginRight: 10 }}
+                />
+              }
+              onPress={() => handleTypeChange('Ημερομηνία')}
+            />
+          </View>
+
+          <View>
+            <Text>{selectedType}</Text>
+          </View>
+        </>
       )}
     </View>
   )
@@ -47,5 +93,26 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
     marginTop: 10
+  },
+  buttonTabs: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: '100%'
+    // marginBottom: 60
+  },
+  tabButton: {
+    marginTop: 30,
+    borderRadius: 25,
+    minWidth: 150
+  },
+  activeButton: {
+    backgroundColor: '#1b2254'
+  },
+  notActiveButton: {
+    backgroundColor: '#d3d3d3',
+    color: '#1b2254'
+    // borderWidth: 5,
+    // borderColor: '#1b2254'
   }
 })
