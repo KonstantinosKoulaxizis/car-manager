@@ -2,7 +2,7 @@
   "expo": {
     "name": "auto manager",
     "slug": "auto-manager",
-    "version": "1.0.2",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/auto_logo.png",
     "splash": {
@@ -23,7 +23,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "io.production.car",
-      "versionCode": 3
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/favicon.png"
