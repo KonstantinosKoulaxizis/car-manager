@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/auto_logo.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "io.production.car"
+      "package": "io.production.car",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
