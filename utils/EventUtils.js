@@ -15,10 +15,15 @@ export default class EventUtils {
 
       if (carInfo) {
         const carObj = JSON.parse(carInfo)
-        carObj.km = event.km
-        await AsyncStorage.setItem('carInfo', JSON.stringify(carObj))
+        const oldKm = carObj.km.replace(/,/g, '.')
+        const newKm = event.km.replace(/,/g, '.')
+
+        if (parseFloat(oldKm) < parseFloat(newKm)) {
+          carObj.km = event.km
+          await AsyncStorage.setItem('carInfo', JSON.stringify(carObj))
+        }
       }
-      
+
       await AsyncStorage.setItem('car_events', JSON.stringify(updated))
     } catch (error) {
       return []
