@@ -9,7 +9,6 @@ import { Button, Avatar } from 'react-native-elements'
 
 import EventsList from '../components/EventsList'
 import AddEventModal from '../components/AddEventModal'
-import ProModal from '../components/ProModal'
 
 export default function OverView(props) {
   const [userName, setUserName] = useState('')
@@ -17,10 +16,9 @@ export default function OverView(props) {
   const [cardata, setCarData] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
   const [loading, seLoading] = useState(true)
-  const [openProModal, setOpenProModal] = useState(false)
 
   const handleProModal = () => {
-    setOpenProModal(!openProModal)
+    console.log(props)
   }
 
   const handleStoredData = async () => {
@@ -92,11 +90,11 @@ export default function OverView(props) {
               />
             </View>
             <Button
-              title='Pro Account'
+              title='Ειδοποιήσεις'
               buttonStyle={styles.registerButton}
               containerStyle={{ borderRadius: 25, marginTop: 10 }}
               icon={<Icon name='star' size={25} color='#edc919' style={{ marginRight: 10 }} />}
-              onPress={handleProModal}
+              onPress={() => props.navigation.navigate('notifications_view')}
             />
           </View>
           <View style={styles.listStyle}>
@@ -115,10 +113,6 @@ export default function OverView(props) {
               carInfo={carInfo}
               navigation={props.navigation}
             />
-          )}
-
-          {openProModal && (
-            <ProModal modalVisible={openProModal} handleModalStatus={handleProModal} />
           )}
         </>
       )}

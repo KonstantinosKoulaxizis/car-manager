@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import DatePicker from '../components/DatePicker'
 import EventUtils from '../utils/EventUtils'
-import Notifications from '../components/Notifications'
+import Notifications from '../components/notifications/Notifications'
 
 export default function FumesEvent(props) {
   const [carMeter, setCarMeter] = useState('')
@@ -17,6 +17,16 @@ export default function FumesEvent(props) {
   const [dateError, setDateError] = useState(false)
   const [finalCost, setFinalCost] = useState('')
   const [visible, setVisible] = useState(false)
+  const [activeNotification, setActiveNotification] = useState(false)
+  const [notificationObj, setNotificationObj] = useState({})
+
+  const handleActiveNotification = active => {
+    setActiveNotification(active)
+  }
+
+  const handleNotification = notification => {
+    setNotificationObj(notification)
+  }
 
   const onDismissSnackBar = () => setVisible(false)
 
@@ -29,7 +39,7 @@ export default function FumesEvent(props) {
   }
 
   const handleFumesEvent = async () => {
-    if (!dateError && carMeter.length && finalCost.length) {
+    if (!dateError && carMeter.length && finalCost.length && !activeNotification) {
       const newEvent = {
         date: eventDate,
         km: carMeter,
@@ -40,6 +50,25 @@ export default function FumesEvent(props) {
       await EventUtils.addEvent(newEvent)
       props.handleRefresh()
       props.navigation.navigate('main')
+    } else if (
+      !dateError &&
+      activeNotification &&
+      notificationObj.type &&
+      carMeter.length &&
+      finalCost.length
+    ) {
+      if (
+        notificationObj.note.length > 0 &&
+        (notificationObj.km.length > 0 || notificationObj.date.length > 0)
+      ) {
+        await EventUtils.addNotification(notificationObj)
+        props.handleRefresh()
+        props.navigation.navigate('main')
+        props.handleRefresh()
+        props.navigation.navigate('main')
+      } else {
+        setVisible(true)
+      }
     } else {
       setVisible(true)
     }
@@ -85,12 +114,15 @@ export default function FumesEvent(props) {
         keyboardType={'numeric'}
       />
       <View>
-        <Notifications />
+        <Notifications
+          handleActiveNotification={handleActiveNotification}
+          handleNotification={handleNotification}
+        />
 
         <Button
           title='Αποθήκευση'
           buttonStyle={styles.registerButton}
-          containerStyle={{ marginTop: 30, borderRadius: 25 }}
+          containerStyle={{ borderRadius: 25, marginBottom: 50 }}
           icon={<Icon name='content-save' size={25} color='#d2d6ef' style={{ marginRight: 15 }} />}
           onPress={handleFumesEvent}
         />

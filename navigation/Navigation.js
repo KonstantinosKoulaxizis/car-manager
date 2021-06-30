@@ -13,6 +13,8 @@ import TireEvent from '../views/TireEvent'
 import InsuranceEvent from '../views/InsuranceEvent'
 import FumesEvent from '../views/FumesEvent'
 import ProfileSettingsView from '../views/ProfileSettingsView'
+import NotificationsView from '../views/NotificationsView'
+
 function App() {
   const [refresh, setRefresh] = React.useState(false)
 
@@ -64,6 +66,10 @@ function App() {
     return <ProfileSettingsView navigation={navigation} handleRefresh={handleRefresh} />
   }
 
+  function GoToNotifications({ navigation }) {
+    return <NotificationsView navigation={navigation} handleRefresh={handleRefresh} />
+  }
+
   const Stack = createStackNavigator()
 
   return (
@@ -106,6 +112,11 @@ function App() {
           options={{ title: 'Ρυθμίσεις Χρήστη' }}
           name='profile_settings'
           component={GoToProfileSettings}
+        />
+        <Stack.Screen
+          options={{ title: 'Eιδοποιήσεις' }}
+          name='notifications_view'
+          component={GoToNotifications}
         />
       </Stack.Navigator>
     </NavigationContainer>

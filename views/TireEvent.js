@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import DatePicker from '../components/DatePicker'
 import EventUtils from '../utils/EventUtils'
 import AddServiceEvents from '../components/AddServiceEvents'
-import Notifications from '../components/Notifications'
+import Notifications from '../components/notifications/Notifications'
 
 export default function TireEvent(props) {
   const [carMeter, setCarMeter] = useState('')
@@ -19,7 +19,16 @@ export default function TireEvent(props) {
   const [visible, setVisible] = useState(false)
   const [serviceArray, setServiceArray] = useState([])
   const [finalCost, setFinalCost] = useState('')
+  const [activeNotification, setActiveNotification] = useState(false)
+  const [notificationObj, setNotificationObj] = useState({})
 
+  const handleActiveNotification = active => {
+    setActiveNotification(active)
+  }
+
+  const handleNotification = notification => {
+    setNotificationObj(notification)
+  }
   const onDismissSnackBar = () => setVisible(false)
 
   const handleDate = date => {
@@ -31,7 +40,14 @@ export default function TireEvent(props) {
   }
 
   const handleTireEvent = async () => {
-    if (!dateError && carMeter.length && finalCost && finalCost.length && serviceArray.length > 0) {
+    if (
+      !dateError &&
+      carMeter.length &&
+      finalCost &&
+      finalCost.length &&
+      serviceArray.length > 0 &&
+      !activeNotification
+    ) {
       const newEvent = {
         date: eventDate,
         km: carMeter,
@@ -43,6 +59,23 @@ export default function TireEvent(props) {
       await EventUtils.addEvent(newEvent)
       props.handleRefresh()
       props.navigation.navigate('main')
+    } else if (
+      !dateError &&
+      activeNotification &&
+      notificationObj.type &&
+      carMeter.length &&
+      finalCost.length
+    ) {
+      if (
+        notificationObj.note.length > 0 &&
+        (notificationObj.km.length > 0 || notificationObj.date.length > 0)
+      ) {
+        await EventUtils.addNotification(notificationObj)
+        props.handleRefresh()
+        props.navigation.navigate('main')
+      } else {
+        setVisible(true)
+      }
     } else {
       setVisible(true)
     }
@@ -113,8 +146,10 @@ export default function TireEvent(props) {
             keyboardType={'numeric'}
             disabled={!serviceArray.length}
           />
-
-          <Notifications />
+          <Notifications
+            handleActiveNotification={handleActiveNotification}
+            handleNotification={handleNotification}
+          />
         </>
       ) : (
         <Text style={{ color: '#bf1e2d' }}>* Παρακαλώ επιλέξτε μια η περισσότερες εργασίες</Text>
@@ -124,7 +159,7 @@ export default function TireEvent(props) {
         <Button
           title='Αποθήκευση'
           buttonStyle={styles.registerButton}
-          containerStyle={{ paddingTop: 30, paddingBottom: 40, borderRadius: 25 }}
+          containerStyle={{ borderRadius: 25, marginBottom: 50, marginTop: 15 }}
           icon={<Icon name='content-save' size={25} color='#d2d6ef' style={{ marginRight: 15 }} />}
           onPress={handleTireEvent}
           disabled={handleIsDisabled()}

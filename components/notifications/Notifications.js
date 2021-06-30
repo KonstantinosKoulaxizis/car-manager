@@ -4,6 +4,9 @@ import { StyleSheet, Text, View, Switch } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import KmNotification from './KmNotification'
+import DateNotification from './DateNotification'
+
 export default function Notifications(props) {
   const [isEnabled, setIsEnabled] = useState(false)
   const [selectedType, setSelectedType] = useState('Χιλιόμετρα')
@@ -13,6 +16,10 @@ export default function Notifications(props) {
   }
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState)
+
+  useEffect(() => {
+    props.handleActiveNotification(isEnabled)
+  }, [isEnabled])
 
   return (
     <View style={!isEnabled ? styles.container : styles.containerOpen}>
@@ -70,9 +77,13 @@ export default function Notifications(props) {
               onPress={() => handleTypeChange('Ημερομηνία')}
             />
           </View>
-
-          <View>
-            <Text>{selectedType}</Text>
+          <View style={{ width: '100%' }}>
+            {selectedType === 'Χιλιόμετρα' && (
+              <KmNotification handleNotification={props.handleNotification} />
+            )}
+            {selectedType === 'Ημερομηνία' && (
+              <DateNotification handleNotification={props.handleNotification} />
+            )}
           </View>
         </>
       )}

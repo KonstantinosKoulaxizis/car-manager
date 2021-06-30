@@ -29,4 +29,26 @@ export default class EventUtils {
       return []
     }
   }
+
+  static addNotification = async notification => {
+    try {
+      let notifications = []
+      const existingNotifications = await AsyncStorage.getItem(
+        `user_notifications_${notification.type}`
+      )
+
+      if (existingNotifications) {
+        notifications = [notification, ...JSON.parse(existingNotifications)]
+      } else {
+        notifications = [notification]
+      }
+
+      await AsyncStorage.setItem(
+        `user_notifications_${notification.type}`,
+        JSON.stringify(notifications)
+      )
+    } catch (error) {
+      return []
+    }
+  }
 }
