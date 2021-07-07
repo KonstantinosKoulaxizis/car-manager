@@ -15,7 +15,7 @@ export default function KmNotification(props) {
       created_at: new Date(),
       type: 'km',
       note: note,
-      km: carMeter,
+      km: carMeter.replace(/,/g, ''),
       date: ''
     }
     props.handleNotification(notification)

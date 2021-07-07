@@ -1,4 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import moment from 'moment'
+import * as Notifications from 'expo-notifications'
 
 export default class EventUtils {
   static addEvent = async event => {
@@ -15,8 +17,8 @@ export default class EventUtils {
 
       if (carInfo) {
         const carObj = JSON.parse(carInfo)
-        const oldKm = carObj.km.replace(/,/g, '.')
-        const newKm = event.km.replace(/,/g, '.')
+        const oldKm = carObj.km.replace(/,/g, '')
+        const newKm = event.km.replace(/,/g, '')
 
         if (parseFloat(oldKm) < parseFloat(newKm)) {
           carObj.km = event.km
@@ -47,6 +49,35 @@ export default class EventUtils {
         `user_notifications_${notification.type}`,
         JSON.stringify(notifications)
       )
+
+      if (notification.type === 'date') {
+        let timeToSeconds = 0
+        const time = moment(notification.date).fromNow('ss')
+        const splitTime = time.split(' ')
+        if (splitTime[1] === 'hours' || splitTime[1] === 'day') {
+          timeToSeconds = parseInt(splitTime[0]) * 60 * 60
+        } else if (splitTime[1] === 'days' || splitTime[1] === 'day') {
+          timeToSeconds = parseInt(splitTime[0]) * 60 * 60 * 24
+        } else if (splitTime[1] === 'months' || splitTime[1] === 'month') {
+          timeToSeconds = parseInt(splitTime[0]) * 60 * 60 * 24 * 28
+        }
+
+        const schedulingOptions = {
+          content: {
+            title: 'Auto manager',
+            body: notification.note,
+            sound: true,
+            priority: Notifications.AndroidNotificationPriority.HIGH,
+            color: 'white'
+          },
+          trigger: {
+            seconds: timeToSeconds
+          }
+        }
+        // Notifications show only when app is not active.
+        // (ie. another app being used or device's screen is locked)
+        Notifications.scheduleNotificationAsync(schedulingOptions)
+      }
     } catch (error) {
       return []
     }

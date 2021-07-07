@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import * as Permissions from 'expo-permissions'
 
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
 
 import DatePicker from '../DatePicker'
@@ -18,6 +19,19 @@ export default function DateNotification(props) {
     setDateError(state)
   }
 
+  const alertIfRemoteNotificationsDisabledAsync = async () => {
+    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+    if (status !== 'granted') {
+      Alert.alert('Ανενεργές ειδοποιήσεις !', `Παρακαλώ ενεργοποιήσετε τις ειδοποιήσεις σας`, [
+        {
+          text: 'Κλείσιμο',
+          onPress: () => null,
+          style: 'cancel'
+        }
+      ])
+    }
+  }
+
   useEffect(() => {
     const notification = {
       created_at: new Date(),
@@ -28,6 +42,10 @@ export default function DateNotification(props) {
     }
     props.handleNotification(notification)
   }, [eventDate, note])
+
+  useEffect(() => {
+    alertIfRemoteNotificationsDisabledAsync()
+  }, [])
 
   return (
     <View style={styles.container}>

@@ -47,7 +47,7 @@ const SettingsView = props => {
         />
       </View>
       <View style={{ flex: 1 }}>
-        <NotificationsList type={selectedType} />
+        <NotificationsList type={selectedType} handleRefresh={props.handleRefresh} />
       </View>
     </View>
   )

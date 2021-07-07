@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, ImageBackground } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { Snackbar } from 'react-native-paper'
 
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const image = '../assets/app_cover.jpg'
 
@@ -46,7 +46,7 @@ export default function RegistrationModal({ navigation }) {
             <Text style={styles.textStyle}>Παρακαλώ εισάγετε το όνομα σας</Text>
             <Input
               placeholder='π.χ. Γιάννης Γ.'
-              leftIcon={<Icon name='user' size={24} color='black' />}
+              leftIcon={<Icon name='account' size={24} color='black' />}
               onChangeText={value => setUsersName(value)}
               value={usersName}
             />

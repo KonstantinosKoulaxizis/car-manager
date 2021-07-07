@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import NumberFormat from 'react-number-format'
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
-import { Button, Avatar } from 'react-native-elements'
+import { StyleSheet, Text, View, ActivityIndicator, Alert } from 'react-native'
+import { Button, Avatar, Badge } from 'react-native-elements'
 
 import EventsList from '../components/EventsList'
 import AddEventModal from '../components/AddEventModal'
@@ -16,16 +16,15 @@ export default function OverView(props) {
   const [cardata, setCarData] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
   const [loading, seLoading] = useState(true)
-
-  const handleProModal = () => {
-    console.log(props)
-  }
+  const [notificationsCout, setNotificationsCount] = useState(0)
 
   const handleStoredData = async () => {
     const username = await AsyncStorage.getItem('usersName')
     const carInfoRaw = await AsyncStorage.getItem('carInfo')
     const startDate = await AsyncStorage.getItem('starting_date')
     const carEventsRaw = await AsyncStorage.getItem('car_events')
+    const kmNotifications = await AsyncStorage.getItem('user_notifications_km')
+    const dateNotifications = await AsyncStorage.getItem('user_notifications_date')
     const carInfoObj = JSON.parse(carInfoRaw)
 
     if (startDate && startDate.length) {
@@ -44,6 +43,8 @@ export default function OverView(props) {
       }
     }
 
+    handleNotifications(kmNotifications, dateNotifications, carInfoObj)
+
     setUserName(username)
     setCarInfo(carInfoObj)
     seLoading(false)
@@ -52,6 +53,61 @@ export default function OverView(props) {
   const handleModalStatus = () => {
     setModalVisible(!modalVisible)
   }
+
+  const handleNotifications = async (km, date, info) => {
+    let count = 0
+    let newNotifications = 0
+    const kmArray = []
+    const dateArray = []
+
+    if (km) {
+      JSON.parse(km).forEach(notification => {
+        if (notification.active) {
+          count = count + 1
+        } else if (
+          parseFloat(notification.km.replace(/,/g, '')) < parseFloat(info.km.replace(/,/g, ''))
+        ) {
+          count = count + 1
+          newNotifications = newNotifications + 1
+          notification.active = true
+        }
+        kmArray.push(notification)
+      })
+      await AsyncStorage.setItem('user_notifications_km', JSON.stringify(kmArray))
+    }
+
+    if (date) {
+      JSON.parse(date).forEach(notification => {
+        if (notification.active) {
+          count = count + 1
+        } else if (moment(notification.date, 'YYYY/MM/DD').isBefore(moment())) {
+          count = count + 1
+          newNotifications = newNotifications + 1
+          notification.active = true
+        }
+        dateArray.push(notification)
+      })
+      await AsyncStorage.setItem('user_notifications_date', JSON.stringify(dateArray))
+    }
+    setNotificationsCount(count)
+
+    if (newNotifications > 0) {
+      Alert.alert(
+        'Νέες ειδοποιήσεις !',
+        `Έχεις ${newNotifications} ${
+          newNotifications > 1 ? 'νέες  ειδοποιήσεις' : 'νέα  ειδοποίηση'
+        }`,
+        [
+          {
+            text: 'Κλείσιμο',
+            onPress: () => null,
+            style: 'cancel'
+          }
+        ]
+      )
+    }
+  }
+
 
   useEffect(() => {
     handleStoredData()
@@ -89,23 +145,33 @@ export default function OverView(props) {
                 renderText={value => <Text style={styles.subText}>Χιλιόμετρα: {value} km</Text>}
               />
             </View>
-            <Button
-              title='Ειδοποιήσεις'
-              buttonStyle={styles.registerButton}
-              containerStyle={{ borderRadius: 25, marginTop: 10 }}
-              icon={<Icon name='star' size={25} color='#edc919' style={{ marginRight: 10 }} />}
-              onPress={() => props.navigation.navigate('notifications_view')}
-            />
+            <View>
+              {notificationsCout > 0 && (
+                <Badge
+                  value={notificationsCout}
+                  status='error'
+                  containerStyle={{ position: 'absolute', top: -4, right: -4, zIndex: 20 }}
+                />
+              )}
+              <Button
+                title='Ειδοποιήσεις'
+                buttonStyle={styles.registerButton}
+                containerStyle={{ borderRadius: 25, marginTop: 10 }}
+                icon={
+                  <Icon
+                    name={notificationsCout > 0 ? 'bell-alert' : 'bell'}
+                    size={25}
+                    color='#edc919'
+                    style={{ marginRight: 10 }}
+                  />
+                }
+                onPress={() => props.navigation.navigate('notifications_view')}
+              />
+            </View>
           </View>
           <View style={styles.listStyle}>
             <EventsList data={cardata} handleRefresh={props.handleRefresh} />
           </View>
-          {/* <FAB
-            style={styles.fab}
-            icon='clipboard-plus-outline'
-            onPress={handleModalStatus}
-            visible={!modalVisible}
-          /> */}
           {modalVisible && (
             <AddEventModal
               modalVisible={modalVisible}

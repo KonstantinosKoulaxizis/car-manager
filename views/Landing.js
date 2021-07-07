@@ -1,22 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import Icon from 'react-native-vector-icons/FontAwesome'
 
 import { StyleSheet, View, Image, Animated } from 'react-native'
 import { Button } from 'react-native-elements'
-import ProModal from '../components/ProModal'
 
 const SPLASH = '../assets/splash_auto.png'
 
 export default function App({ navigation }) {
   const [loading, seLoading] = useState(true)
-  const [openProModal, setOpenProModal] = useState(false)
   const [newAccount, setNewAccount] = useState(false)
   const fadeAnim = useRef(new Animated.Value(0)).current
 
-  const handleProModal = () => {
-    setOpenProModal(!openProModal)
-  }
+
 
   const handleExistingUser = async () => {
     const username = await AsyncStorage.getItem('usersName')
@@ -71,17 +66,9 @@ export default function App({ navigation }) {
               containerStyle={{ marginTop: 20, borderRadius: 25 }}
               onPress={() => navigation.navigate('free_account')}
             />
-            <Button
-              title='Pro Account'
-              buttonStyle={styles.registerButton}
-              containerStyle={{ marginTop: 30, borderRadius: 25 }}
-              icon={<Icon name='star' size={25} color='#edc919' style={{ marginRight: 10 }} />}
-              onPress={handleProModal}
-            />
           </View>
         </Animated.View>
       )}
-      {openProModal && <ProModal modalVisible={openProModal} handleModalStatus={handleProModal} />}
     </View>
   )
 }

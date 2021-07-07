@@ -60,7 +60,7 @@ export default function KteoEvent(props) {
     ) {
       if (
         notificationObj.note.length > 0 &&
-        (notificationObj.km.length > 0 || notificationObj.date)
+        (notificationObj.km.length > 0 || toString(notificationObj.date).length > 0)
       ) {
         await EventUtils.addNotification(notificationObj)
         props.handleRefresh()
