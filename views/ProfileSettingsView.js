@@ -358,7 +358,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     flexDirection: 'column',
-    padding: 20
+    padding: 20,
+    marginTop: 40
   },
   textStyle: {
     textAlign: 'center',

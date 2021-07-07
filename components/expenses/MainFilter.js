@@ -10,7 +10,7 @@ import TextContainer from './TextContainer'
 import TypeButtons from './TypeButtons'
 
 const OPTIONS = [
-  { title: 'Χωρίς φίλτρο', type: 'no_filter', name: 'filter-variant-remove' },
+  { title: 'Συνολικά', type: 'no_filter', name: 'filter-variant-remove' },
   { title: 'Ανεφοδιασμός', type: 'gas', name: 'gas-station' },
   { title: 'Service', type: 'service', name: 'wrench' },
   { title: 'KTEO', type: 'kteo', name: 'car-settings' },
@@ -61,120 +61,32 @@ export default function MainFilter(props) {
 
   return (
     <View style={styles.container}>
-      {openFilters && (
-        <Modal
-          animationType='fade'
-          transparent={true}
-          visible={openFilters}
-          onRequestClose={handleOpenFilters}
-        >
-          <View style={styles.centeredView}>
-            <View style={{ ...styles.modalView, width: 350, height: 600 }}>
-              <Button
-                title={selectedType.title ? selectedType.title : 'Χωρίς φίλτρο'}
-                titleStyle={{ fontWeight: 'bold' }}
-                buttonStyle={{
-                  borderRadius: 25,
-                  backgroundColor: '#1b2254',
-                  height: 50,
-                  marginTop: 20,
-                  width: 250,
-                  alignSelf: 'center'
-                }}
-                onPress={handleModalStatus}
-                icon={
-                  <Icon
-                    name={selectedType.name ? selectedType.name : 'filter-variant'}
-                    size={25}
-                    color='#d2d6ef'
-                    style={{ marginRight: 10 }}
-                  />
-                }
-              />
-
-              <Button
-                title='Φιλτράρισμα Οχημάτων'
-                disabledTitleStyle={{ color: 'grey', fontSize: 15, fontWeight: 'bold' }}
-                disabledStyle={{ borderWidth: 5, borderColor: 'grey' }}
-                buttonStyle={{
-                  borderRadius: 25,
-                  backgroundColor: '#1b2254',
-                  height: 50,
-                  marginTop: 20,
-                  width: 250,
-                  alignSelf: 'center'
-                }}
-                icon={<Icon name='car-cog' size={25} color='grey' style={{ marginRight: 10 }} />}
-                disabled
-              />
-
-              <TimeFilter handleOpenFilters={handleOpenFilters} />
-            </View>
-          </View>
-          <Modal
-            animationType='fade'
-            transparent={true}
-            visible={openModal}
-            onRequestClose={handleModalStatus}
-          >
-            <View style={{ ...styles.centeredView }}>
-              <View style={styles.modalView}>
-                <Button
-                  titleStyle={{ fontWeight: 'bold' }}
-                  buttonStyle={styles.closeButton}
-                  containerStyle={{ borderRadius: 50, position: 'absolute', right: 15, top: 15 }}
-                  onPress={handleModalStatus}
-                  icon={<Icon name='close-thick' size={12} color='#f0f0f0' />}
-                />
-                <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>
-                  Επέλεξε φίλτρο
-                </Text>
-                <Text
-                  style={{ fontSize: 13, marginRight: 15, color: '#bf1e2d', fontWeight: 'bold' }}
-                >
-                  * Διαθέσιμο στη Pro έκδοση
-                </Text>
-                {OPTIONS.map((i, index) => (
-                  <View key={index}>
-                    <Button
-                      titleStyle={{ fontWeight: 'bold' }}
-                      title={i.title ? i.title : 'Χωρίς φίλτρο'}
-                      buttonStyle={{
-                        borderRadius: 25,
-                        backgroundColor: '#1b2254',
-                        marginTop: 15,
-                        width: 250
-                      }}
-                      // onPress={() => handleFilterChange(i)}
-                      icon={
-                        <Icon
-                          name={i.name ? i.name : 'filter-variant-remove'}
-                          size={25}
-                          color='#b2b2b2'
-                          style={{ marginRight: 10 }}
-                        />
-                      }
-                      // TODO remove disabled
-                      disabled={true}
-                    />
-                  </View>
-                ))}
-              </View>
-            </View>
-          </Modal>
-        </Modal>
-      )}
       <View>
         <TypeButtons handleActiveTab={props.handleActiveTab} />
         {props.activeTab != 'graph' && (
-          <Button
-            title='Φίλτρα'
-            buttonStyle={{ borderRadius: 25, backgroundColor: '#1b2254', height: 50 }}
-            onPress={handleOpenFilters}
-            icon={
-              <Icon name='filter-variant' size={25} color='#d2d6ef' style={{ marginRight: 10 }} />
-            }
-          />
+          <View style={styles.buttonsView}>
+            <Button
+              title='Μήνας'
+              buttonStyle={styles.typeButtonsLeft}
+              titleStyle={{ fontSize: 14, color: '#1b2254', fontWeight: 'bold' }}
+              disabledStyle={{ borderColor: '#858585' }}
+              disabled
+            />
+            <Button
+              title='Χρόνος'
+              buttonStyle={styles.typeButtons}
+              titleStyle={{ fontSize: 14, color: '#1b2254', fontWeight: 'bold' }}
+              disabledStyle={{ borderColor: '#858585' }}
+              disabled
+            />
+            <Button
+              title='Συνολικά'
+              buttonStyle={styles.typeButtonsRight}
+              titleStyle={{ fontSize: 14, color: '#1b2254', fontWeight: 'bold' }}
+              disabledStyle={{ borderColor: '#858585' }}
+              // disabled
+            />
+          </View>
         )}
         <TextContainer selectedType={selectedType} />
       </View>
@@ -239,5 +151,32 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     backgroundColor: '#bf1e2d'
+  },
+  buttonsView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20
+  },
+  typeButtons: {
+    backgroundColor: '#f0f0f0',
+    borderWidth: 5,
+    borderColor: '#1b2254',
+    width: 115
+  },
+  typeButtonsLeft: {
+    backgroundColor: '#f0f0f0',
+    borderWidth: 5,
+    borderColor: '#1b2254',
+    width: 115,
+    borderTopLeftRadius: 25,
+    borderBottomLeftRadius: 25
+  },
+  typeButtonsRight: {
+    backgroundColor: '#f0f0f0',
+    borderWidth: 5,
+    borderColor: '#1b2254',
+    width: 112,
+    borderTopRightRadius: 25,
+    borderBottomRightRadius: 25
   }
 })

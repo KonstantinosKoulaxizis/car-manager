@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BottomNavigation } from 'react-native-paper'
-import { BackHandler, StyleSheet, Dimensions, Alert } from 'react-native'
+import { BackHandler, StyleSheet, Dimensions } from 'react-native'
 import { FAB } from 'react-native-paper'
 
 import AddEventModal from '../components/AddEventModal'
@@ -9,6 +9,7 @@ import OverView from './OverView'
 import ExpensesView from './ExpensesView'
 import ServiceBookView from './ServiceBookView'
 import SettingsView from './SettingsView'
+import ProfileSettingsView from './ProfileSettingsView'
 
 const Main = props => {
   const OverViewRoute = () => (
@@ -19,7 +20,7 @@ const Main = props => {
 
   const ServiceBookRoute = () => <ServiceBookView />
 
-  const SettingsRoute = () => <SettingsView navigation={props.navigation} />
+  const SettingsRoute = () => <ProfileSettingsView navigation={props.navigation} />
 
   const [index, setIndex] = useState(0)
   const [modalVisible, setModalVisible] = useState(false)

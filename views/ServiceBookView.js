@@ -3,11 +3,10 @@ import { StyleSheet, View, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import moment from 'moment'
 
-import TypeButtons from '../components/serviceBook/TypeButtons'
 import SericeBookList from '../components/serviceBook/SericeBookList'
 
 export default function ServiceBookView() {
-  const [activeTab, setActiveTab] = useState('')
+  const [activeTab, setActiveTab] = useState('book')
   const [serviceTablesData, setServiceTablesData] = useState([])
   const [loading, seLoading] = useState(true)
 
@@ -31,12 +30,10 @@ export default function ServiceBookView() {
     seLoading(false)
   }
 
-  const handleActiveTab = type => {
-    setActiveTab(type)
-  }
 
   useEffect(() => {
     handleTablesData()
+    setActiveTab('book')
   }, [])
 
   return (
@@ -47,10 +44,8 @@ export default function ServiceBookView() {
         </View>
       ) : (
         <>
-          <TypeButtons handleActiveTab={handleActiveTab} activeTab={activeTab} />
-
           {activeTab === 'book' && (
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
               <SericeBookList data={serviceTablesData} />
             </View>
           )}
